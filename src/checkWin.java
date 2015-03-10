@@ -38,6 +38,17 @@ public class checkWin {
 		}
 		
 		// for rows
+		for (int row = 5; row >= 0; row --){
+			for (int col = 0; col < 3; col ++){ // don't check last three, as that would result in out of bounds
+				total = value[row][col+1] + value[row][col] + value[row][col+2] +value[row][col +3]; // adds up the total
+				if (total == 4 | total == -4){
+					int [] [] winPos = {{col, row}, {col+1, row},{col+2, row},{col+3, row}};
+					setPos(winPos);
+					if (total == 4) {return 1;} 		// if red win
+					else if (total == -4) { return 2;}	// if blue win
+				}
+			}
+		}
 		
 		// for cols		
 		for (int col = 0; col < 6; col ++){
