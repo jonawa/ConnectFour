@@ -18,6 +18,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 	// initialize current player
 	static checkWin check;
 	static currentPlayer Player = new currentPlayer();
+	static int[][] winPos = new int [4][2];
 	int xPos;
 	int yPos;
 	// at the beginning, sets the program to start mode so that the counters are
@@ -141,6 +142,9 @@ public class ConnectFour extends JFrame implements MouseListener {
 					// no errors, check for win;
 					else {
 						int total = check.checkWin (positions);
+						if (total == 1 | total == 2){
+							winPos = check.getPos();
+						}						
 					//	System.out.println(total);
 					}
 				}
