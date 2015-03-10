@@ -58,7 +58,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 	private class DrawingPanel extends JPanel {
 		public DrawingPanel() {
 			// set the basic parameters of the drawing panel
-			setPreferredSize(new Dimension(1000, 750));
+			setPreferredSize(new Dimension(1000, 700));
 			setOpaque(true);
 			setResizable(false);
 			setBackground(Color.white);
@@ -68,11 +68,11 @@ public class ConnectFour extends JFrame implements MouseListener {
 
 			// create the start button
 			Button startButton = new Button("New Game");
-			startButton.setBounds(400, 690, 100, 25);
+			startButton.setBounds(20, 290, 100, 25);
 
 			// when user is done placing circles
 			Button endButton = new Button("Done Turn");
-			endButton.setBounds(550, 690, 100, 25);
+			endButton.setBounds(20, 330, 100, 25);
 
 			// add an action listener, if this button is pressed, start a new
 			// game
