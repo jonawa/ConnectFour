@@ -16,6 +16,7 @@ import java.awt.Polygon;
 public class ConnectFour extends JFrame implements MouseListener {
 
 	// initialize current player
+	static checkWin check;
 	static currentPlayer Player = new currentPlayer();
 	int xPos;
 	int yPos;
@@ -82,11 +83,11 @@ public class ConnectFour extends JFrame implements MouseListener {
 							repaint();
 						}
 					}
-					for (int i = 0; i < 7; i++) {
+				/*	for (int i = 0; i < 7; i++) {
 						for (int j = 0; j < 6; j++) {
 							System.out.println(positions[i][j]);
 						}
-					}
+					}*/
 					
 					if (start == false) {
 						start = true;
@@ -121,20 +122,26 @@ public class ConnectFour extends JFrame implements MouseListener {
 							}
 						}
 					}
+					//System.out.println (blueCount + " " + redCount);
 					if (error)
 						JOptionPane.showMessageDialog(null,
 								"ERROR: Tiles unsupported by any discs underneath! (Marked by yellow)");
 					
 					// if red has more turns than blue.. show invalid move popup
-					if (redCount > blueCount) {
+					else if (redCount > blueCount) {
 						JOptionPane.showMessageDialog(null,
 								"ERROR: Red had more turns than Blue!");
 
 					}
 					// if blue has more turns than red.. show invalid move popup
-					if (blueCount > redCount) {
+					else if (blueCount > redCount) {
 						JOptionPane.showMessageDialog(null,
 								"ERROR: Blue had more turns than Red!");
+					}
+					// no errors, check for win;
+					else {
+						int total = check.checkWin (positions);
+					//	System.out.println(total);
 					}
 				}
 			});
@@ -235,8 +242,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 			positions[(p.x - 140) / DISC_RADIUS][(p.y - 90) / DISC_RADIUS] = 1;
 		else if (player == "Blue")
 			positions[(p.x - 140) / DISC_RADIUS][(p.y - 90) / DISC_RADIUS] = 2;
-		System.out.println((p.x - 140) / DISC_RADIUS + "," + (p.y - 30)
-				/ DISC_RADIUS);
+		//System.out.println((p.x - 140) / DISC_RADIUS + "," + (p.y - 30)/ DISC_RADIUS);
 	}
 
 	// function to make round x and y coordinates so circles "snap" in place
