@@ -19,6 +19,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 	static checkWin check;
 	static currentPlayer Player = new currentPlayer();
 	static int[][] winPos = new int [4][2];
+	String progress = "";
 	int xPos;
 	int yPos;
 	// at the beginning, sets the program to start mode so that the counters are
@@ -77,6 +78,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 			// game
 			startButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					progress = "game in progress";
 					// set all positions to 0 (empty)
 					for (int i = 0; i < 7; i++) {
 						for (int j = 0; j < 6; j++) {
@@ -144,8 +146,23 @@ public class ConnectFour extends JFrame implements MouseListener {
 						int total = check.checkWin (positions);
 						if (total == 1 | total == 2){
 							winPos = check.getPos();
+						}		
+						System.out.println(total);
+						if (total == 1) {
+							progress = "Red Wins!";
+
+						}					
+						else if (total == 2) {
+							progress = "Blue Wins!";
+
 						}						
-					//	System.out.println(total);
+						else if (total == 0) {
+							progress = "It's a Draw";
+
+						}
+						else{
+							progress = "Game in process";
+						}
 					}
 				}
 			});
