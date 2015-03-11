@@ -57,8 +57,64 @@ public class checkWin {
 				}
 			}
 		}
-
-		// for left diagonal
+		
+		// two left diagonals of length 6
+		for (int diagCol = 0; diagCol <2; diagCol ++){
+			for (int row = 0; row <3; row ++){
+				total = value[diagCol][row] + value[diagCol+1][row+1] + value[diagCol+2][row+2] + value[diagCol+3][row+3];
+				if (total == 4 | total == -4){
+					int [][] winPos = {{diagCol,row} , {diagCol+1,row+1} , {diagCol+2,row+2} , {diagCol+3,row+3}};
+					setPos(winPos);
+					if (total == 4) { return 1; } 		// if red wins
+					else if (total == -4) { return 2; } // if blue wins
+				}
+			}
+		}
+		
+		// two left diagonals of length 5
+		int diagCol = 0;
+		int row = 1;
+		while (diagCol <2){
+			total = value[diagCol][row] + value[diagCol+1][row+1] + value[diagCol+2][row+2] + value[diagCol+3][row+3];
+			if (total == 4 | total == -4){
+				int [][] winPos = {{diagCol,row} , {diagCol+1,row+1} , {diagCol+2,row+2} , {diagCol+3,row+3}};
+				setPos(winPos);
+				if (total == 4) { return 1; } 		// if red wins
+				else if (total == -4) { return 2; } // if blue wins
+			}
+			diagCol++;
+			row ++;
+		}
+		
+		int diagCol2 = 2;
+		int row2 = 0;
+		while (diagCol2 <4){
+			total = value[diagCol2][row2] + value[diagCol2+1][row2+1] + value[diagCol2+2][row2+2] + value[diagCol2+3][row2+3];
+			if (total == 4 | total == -4){
+				int [][] winPos = {{diagCol2,row2} , {diagCol2+1,row2+1} , {diagCol2+2,row2+2} , {diagCol2+3,row2+3}};
+				setPos(winPos);
+				if (total == 4) { return 1; } 		// if red wins
+				else if (total == -4) { return 2; } // if blue wins
+			}
+			diagCol2++;
+			row2 ++;
+		}
+		
+		// two diagonals of length 4 
+		int diagCol3 = 0;
+		int row3 = 2;
+		while (diagCol3 <4){
+			total = value[diagCol2][row2] + value[diagCol2+1][row2+1] + value[diagCol2+2][row2+2] + value[diagCol2+3][row2+3];
+			if (total == 4 | total == -4){
+				int [][] winPos = {{diagCol2,row2} , {diagCol2+1,row2+1} , {diagCol2+2,row2+2} , {diagCol2+3,row2+3}};
+				setPos(winPos);
+				if (total == 4) { return 1; } 		// if red wins
+				else if (total == -4) { return 2; } // if blue wins
+			}
+			diagCol3 += 3;
+			row3 += 2;
+		}
+		
 		
 		// for right diagonal
 		
