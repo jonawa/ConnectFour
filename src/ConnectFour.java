@@ -146,10 +146,10 @@ public class ConnectFour extends JFrame implements MouseListener {
 					// no errors, check for win;
 					else {
 						int total = check.checkWin (positions);
+						System.out.println(total);
 						if (total == 1 | total == 2){
 							winPos = check.getPos();
 						}		
-						System.out.println(total);
 						if (total == 1) {
 							progress = "Red Wins!";
 
