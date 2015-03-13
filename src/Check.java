@@ -12,6 +12,6 @@ public class Check {
 		
 			// if yes then do not continue 
 			
-			// if no then call on checkWinability to check if the move cause a game over
+			// if no then call on checkWinability to check if the move causes a game over
 	
 }
