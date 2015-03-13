@@ -1,5 +1,5 @@
 
-// this class is used by class checkWin
+// this class is used by class Check
 // strictly GUI 
 
 public class showWin {

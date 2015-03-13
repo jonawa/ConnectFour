@@ -1,3 +1,4 @@
+// this class is used by Check
 // check if the current board has four disks in a row od the same colour
 public class checkWin {
 	

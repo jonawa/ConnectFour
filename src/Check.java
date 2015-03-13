@@ -1,5 +1,5 @@
 // this class is used by ConnectFour
-// uses checkWinability, checkWin and Move
+// uses checkWinability, checkWin, showWin and Move
 
 // after every user interaction do a check
 public class Check {
