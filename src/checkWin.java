@@ -1,10 +1,10 @@
-
+// check if the current board has four disks in a row od the same colour
 public class checkWin {
 	
 	static int total = 0;
 	static int [][] winPos = new int [4][2];
 	
-	private static int [][] duplicate (int[][]positions){
+	public static int [][] duplicate (int[][]positions){
 		int [][] value = new int [7][6];
 		for (int i = 0; i < 7; i ++){
 			for (int j = 0; j < 6; j ++){
@@ -24,7 +24,7 @@ public class checkWin {
 		return winPos;
 	}
 	
-	private static void setPos (int [][] win){
+	public static void setPos (int [][] win){
 		winPos = win;
 	}
 	
@@ -59,65 +59,21 @@ public class checkWin {
 		}
 
 		// for left diagonal
-		for (int diagCol = 0; diagCol <2; diagCol ++){
-			for (int row = 0; row <3; row ++){
-				total = value[diagCol][row] + value[diagCol+1][row+1] + value[diagCol+2][row+2] + value[diagCol+3][row+3];
+		for (int col = 6; col > 2; col --){// don't check last 3, as that would cause overflow
+			for (int row = 5; row > 2; row --){ // don't check last three, as that would result in out of bounds
+				total = value[row][col] + value[row - 1][col - 1] + value[row - 2][col - 2] +value[row - 3][col - 3]; // adds up the total
 				if (total == 4 | total == -4){
-					int [][] winPos = {{diagCol,row} , {diagCol+1,row+1} , {diagCol+2,row+2} , {diagCol+3,row+3}};
+					int [] [] winPos = {{col, row}, {col - 1, row - 1},{col - 2, row - 2},{col - 3, row - 3}};
 					setPos(winPos);
-					if (total == 4) { return 1; } 		// if red wins
-					else if (total == -4) { return 2; } // if blue wins
+					if (total == 4) {return 1;} 		// if red win
+					else if (total == -4) { return 2;}	// if blue win
 				}
 			}
-		}
-		
-		// two left diagonals of length 5
-		int diagCol = 0;
-		int row = 1;
-		while (diagCol <2){
-			total = value[diagCol][row] + value[diagCol+1][row+1] + value[diagCol+2][row+2] + value[diagCol+3][row+3];
-			if (total == 4 | total == -4){
-				int [][] winPos = {{diagCol,row} , {diagCol+1,row+1} , {diagCol+2,row+2} , {diagCol+3,row+3}};
-				setPos(winPos);
-				if (total == 4) { return 1; } 		// if red wins
-				else if (total == -4) { return 2; } // if blue wins
-			}
-			diagCol++;
-			row ++;
-		}
-		
-		int diagCol2 = 2;
-		int row2 = 0;
-		while (diagCol2 <4){
-			total = value[diagCol2][row2] + value[diagCol2+1][row2+1] + value[diagCol2+2][row2+2] + value[diagCol2+3][row2+3];
-			if (total == 4 | total == -4){
-				int [][] winPos = {{diagCol2,row2} , {diagCol2+1,row2+1} , {diagCol2+2,row2+2} , {diagCol2+3,row2+3}};
-				setPos(winPos);
-				if (total == 4) { return 1; } 		// if red wins
-				else if (total == -4) { return 2; } // if blue wins
-			}
-			diagCol2++;
-			row2 ++;
-		}
-		
-		// two diagonals of length 4 
-		int diagCol3 = 0;
-		int row3 = 2;
-		while (diagCol3 <4){
-			total = value[diagCol2][row2] + value[diagCol2+1][row2+1] + value[diagCol2+2][row2+2] + value[diagCol2+3][row2+3];
-			if (total == 4 | total == -4){
-				int [][] winPos = {{diagCol2,row2} , {diagCol2+1,row2+1} , {diagCol2+2,row2+2} , {diagCol2+3,row2+3}};
-				setPos(winPos);
-				if (total == 4) { return 1; } 		// if red wins
-				else if (total == -4) { return 2; } // if blue wins
-			}
-			diagCol3 += 3;
-			row3 += 2;
-		}
-		
+		}		
+
 		// for right diagonal
 		for (int col = 0; col < 4; col ++){//dont check last 3, as that would cause overflow
-			for (row = 5; row >= 2; row --){ // don't check last three, as that would result in out of bounds
+			for (int row = 5; row > 2; row --){ // don't check last three, as that would result in out of bounds
 				total = value[row][col] + value[row - 1][col + 1] + value[row - 2][col + 2] +value[row - 3][col + 3]; // adds up the total
 				if (total == 4 | total == -4){
 					int [] [] winPos = {{col, row}, {col + 1, row - 1},{col + 2, row - 2},{col + 3, row - 3}};
