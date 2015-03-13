@@ -96,7 +96,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 					
 					if (start == false) {
 						start = true;
-						playerOne();
+						currentPlayer.Random();
 					}
 				}
 			});
@@ -294,23 +294,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 		}
 	}
 
-	// randomly deciding which player plays first
-	private static void playerOne() {
-
-		// randomly choosing a number between 1 or 2
-		int rand = 1 + (int) (Math.random() * 2);
-
-		// if the number is 1 then blue is player 1 and red is player 2
-		if (rand == 1) {
-			Player.setPlayer("Blue");
-
-		}
-		// if the number is 2 then red is player 1 and blue is player 2
-		else if (rand == 2) {
-			Player.setPlayer("Red");
-
-		}
-	}
+	
 
 	// the main program, runs the game
 	public static void main(String[] args) {
