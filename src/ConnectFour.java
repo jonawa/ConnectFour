@@ -22,7 +22,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 	static int[][] winPos = new int [4][2];
 	int total = 0;
 	
-	String progress = "";
+	String progress = "Maya";
 	int xPos;
 	int yPos;
 	static JLabel status;
@@ -56,6 +56,12 @@ public class ConnectFour extends JFrame implements MouseListener {
 		Container contentPane = getContentPane();
 		contentPane.add(new DrawingPanel(), BorderLayout.CENTER);
 		contentPane.addMouseListener(this);
+
+		//contentPane.add(status);
+		//JFrame frame = new JFrame();
+		//JPanel myPanel = new JPanel();
+		//contentPane.add(myPanel);
+		//add(frame);
 	}
 
 	// draws the images using the graphics object
@@ -78,8 +84,9 @@ public class ConnectFour extends JFrame implements MouseListener {
 			Button endButton = new Button("Done Turn");
 			endButton.setBounds(20, 330, 100, 25);
 			
-			status = new JLabel(progress);
-			status.setBounds(20, 430, 100, 25);
+			status = new JLabel();
+			status.setText(progress);
+			status.setBounds(20, 430, 100, 50);
 
 			// add an action listener, if this button is pressed, start a new
 			// game
