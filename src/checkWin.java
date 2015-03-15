@@ -60,7 +60,7 @@ public class checkWin {
 		}
 
 		// for left diagonal
-		for (int col = 6; col > 2; col --){// don't check last 3, as that would cause overflow
+		for (int col = 5; col > 2; col --){// don't check last 3, as that would cause overflow
 			for (int row = 5; row > 2; row --){ // don't check last three, as that would result in out of bounds
 				total = value[row][col] + value[row - 1][col - 1] + value[row - 2][col - 2] +value[row - 3][col - 3]; // adds up the total
 				if (total == 4 | total == -4){

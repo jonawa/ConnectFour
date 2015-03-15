@@ -18,10 +18,14 @@ public class ConnectFour extends JFrame implements MouseListener {
 	// initialize current player
 	static checkWin check;
 	static currentPlayer Player = new currentPlayer();
+	
 	static int[][] winPos = new int [4][2];
+	int total = 0;
+	
 	String progress = "";
 	int xPos;
 	int yPos;
+	static JLabel status;
 	// at the beginning, sets the program to start mode so that the counters are
 	// not drawn
 	static boolean start = false;
@@ -73,6 +77,9 @@ public class ConnectFour extends JFrame implements MouseListener {
 			// when user is done placing circles
 			Button endButton = new Button("Done Turn");
 			endButton.setBounds(20, 330, 100, 25);
+			
+			status = new JLabel(progress);
+			status.setBounds(20, 430, 100, 25);
 
 			// add an action listener, if this button is pressed, start a new
 			// game
@@ -88,17 +95,16 @@ public class ConnectFour extends JFrame implements MouseListener {
 							repaint();
 						}
 					}
-				/*	for (int i = 0; i < 7; i++) {
-						for (int j = 0; j < 6; j++) {
-							System.out.println(positions[i][j]);
-						}
-					}*/
 					
 					if (start == false) {
 						start = true;
 						currentPlayer.Random();
 					}
+					for (int i = 0; i < 4; i ++){winPos[i] = null;}
+					total =0;
 				}
+				
+				
 			});
 
 			// when end turn is pressed
@@ -145,19 +151,19 @@ public class ConnectFour extends JFrame implements MouseListener {
 					}
 					// no errors, check for win;
 					else {
-						int total = check.checkWin (positions);
+						total = check.checkWin (positions);
 						System.out.println(total);
 						if (total == 1 | total == 2){
-							winPos = check.getPos();
+							winPos = check.getPos();						
+							if (total == 1) {
+								progress = "Red Wins!";
+	
+							}					
+							else if (total == 2) {
+								progress = "Blue Wins!";
+	
+							}	
 						}		
-						if (total == 1) {
-							progress = "Red Wins!";
-
-						}					
-						else if (total == 2) {
-							progress = "Blue Wins!";
-
-						}						
 						else if (total == 0) {
 							progress = "It's a Draw";
 
@@ -172,6 +178,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 			// add the button to the panel
 			add(startButton);
 			add(endButton);
+			add(status);
 		}
 
 		// the main function for drawing graphics
@@ -253,6 +260,13 @@ public class ConnectFour extends JFrame implements MouseListener {
 				}
 			}
 
+			g2d.setColor(Color.black);
+			if (total == 1| total ==2){
+				for (int i = 0; i < 4; i ++){
+						g2d.fillOval(180 + winPos[i][1] * DISC_RADIUS, 130 +winPos[i][0] *DISC_RADIUS, 25, 25);
+				}
+			}
+
 			repaint();
 
 		}
@@ -299,6 +313,9 @@ public class ConnectFour extends JFrame implements MouseListener {
 	// the main program, runs the game
 	public static void main(String[] args) {
 		ConnectFour game = new ConnectFour();
+		JPanel panel = new JPanel();
+		panel.add(status);
+		//game.add(panel);
 		game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		game.pack();
 		game.setVisible(true);
