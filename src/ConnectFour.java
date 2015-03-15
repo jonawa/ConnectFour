@@ -56,12 +56,6 @@ public class ConnectFour extends JFrame implements MouseListener {
 		Container contentPane = getContentPane();
 		contentPane.add(new DrawingPanel(), BorderLayout.CENTER);
 		contentPane.addMouseListener(this);
-
-		//contentPane.add(status);
-		//JFrame frame = new JFrame();
-		//JPanel myPanel = new JPanel();
-		//contentPane.add(myPanel);
-		//add(frame);
 	}
 
 	// draws the images using the graphics object
@@ -75,7 +69,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 			setLayout(null);
 			setFocusable(true);
 			requestFocusInWindow();
-
+			
 			// create the start button
 			Button startButton = new Button("New Game");
 			startButton.setBounds(20, 290, 100, 25);
@@ -95,6 +89,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 					redCount =0;
 					blueCount = 0;
 					progress = "game in progress";
+					
 					// set all positions to 0 (empty)
 					for (int i = 0; i < 7; i++) {
 						for (int j = 0; j < 6; j++) {
@@ -109,6 +104,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 					}
 					for (int i = 0; i < 4; i ++){winPos[i] = null;}
 					total =0;
+					error = false;
 				}
 				
 				
@@ -125,8 +121,9 @@ public class ConnectFour extends JFrame implements MouseListener {
 								for (int down = j; down < 6; down++){
 									if (positions[i][down] == 0){
 										// mark with error
-										positions[i][down] = -1;
-										error = true;
+										positions[i][down] = positions[i][j];
+										positions[i][j] = 0;
+										//error = true;
 									}
 								}
 							}
@@ -146,7 +143,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 								"ERROR: Tiles unsupported by any discs underneath! (Marked by yellow)");
 					
 					// if red has more turns than blue.. show invalid move popup
-					else if (redCount > blueCount) {
+				/*	else if (redCount > blueCount) {
 						JOptionPane.showMessageDialog(null,
 								"ERROR: Red had more turns than Blue!");
 
@@ -155,7 +152,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 					else if (blueCount > redCount) {
 						JOptionPane.showMessageDialog(null,
 								"ERROR: Blue had more turns than Red!");
-					}
+					}*/
 					// no errors, check for win;
 					else {
 						total = check.checkWin (positions);
