@@ -1,0 +1,10 @@
+1. The classes used are:
+	- connectFour: the main class used in which runs all other classes(?)
+2. The public entites used are:
+	- main(): allows for the user to run the program without giving them any access to the file.
+5. The private entities used are:
+	- paintComponent(Grapics g): creates the grid pattern through the use of for-loops to generate this,
+	  as well as the counters on the side. 
+	- guiSetUp(): creates the frame that is visible, as well as it's aspects, such as background colour, including the above components
+	  and adding them to the frame. It gives the frame a name, and allows it to exit-on-close
+7. The design is efficient, as it does not use excess code and allows it to simplify when available.
