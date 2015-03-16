@@ -102,7 +102,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 				public void actionPerformed(ActionEvent e) {
 					redCount = 0;
 					blueCount = 0;
-					progress = "game in progress";
+					progress = "Game in Progress";
 
 					// set all positions to 0 (empty)
 					for (int i = 0; i < 7; i++) {
