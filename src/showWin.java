@@ -30,7 +30,7 @@ public class showWin extends ConnectFour{
 
 		} else {
 			x.colour = Color.black;
-			x.progress = "Game in process";
+			x.progress = "Game in Progess";
 		}
 		System.out.println(total);
 		setColour(x.colour);
