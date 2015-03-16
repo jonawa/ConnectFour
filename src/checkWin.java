@@ -73,7 +73,7 @@ public class checkWin {
 		}		
 
 		// for right diagonal
-		for (int col = 0; col < 4; col ++){//dont check last 3, as that would cause overflow
+		for (int col = 0; col < 3; col ++){//dont check last 3, as that would cause overflow
 			for (int row = 5; row > 2; row --){ // don't check last three, as that would result in out of bounds
 				total = value[row][col] + value[row - 1][col + 1] + value[row - 2][col + 2] +value[row - 3][col + 3]; // adds up the total
 				if (total == 4 | total == -4){
@@ -85,6 +85,7 @@ public class checkWin {
 			}
 		}
 		
-		return 0; // if draw game
+		if (total == 0){ return 0;}
+		return -1; // if draw game
 	}
 }
