@@ -26,9 +26,10 @@ public class ConnectFour extends JFrame implements MouseListener {
 
 	String progress = "";
 	Color colour = Color.BLACK;
-	int xPos;
-	int yPos;
+	int xPos, yPos;
 	static JLabel status;
+
+
 	// at the beginning, sets the program to start mode so that the counters are
 	// not drawn
 	static boolean start = false;
@@ -169,10 +170,10 @@ public class ConnectFour extends JFrame implements MouseListener {
 					 */
 					// no errors, check for win;
 					else { // gets the information for new status changes
+						showWin show = new showWin();
 						checkWin check = new checkWin();
 						total = check.checkWin(positions);
 						if (total == 1 | total == 2){winPos = check.getPos();}
-						showWin show = new showWin();
 						progress = show.show(positions, total);
 						colour = show.getColour();
 					}
@@ -309,6 +310,8 @@ public class ConnectFour extends JFrame implements MouseListener {
 							+ winPos[i][0] * DISC_RADIUS, 25, 25);
 				}
 			}
+		//	showWin show = new showWin();
+		//	show.drawDots(positions);
 
 			repaint();
 
