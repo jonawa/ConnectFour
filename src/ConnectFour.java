@@ -121,6 +121,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 					}
 					total = 0;
 					error = false;
+					colour = Color.black;
 				}
 
 			});

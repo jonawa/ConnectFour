@@ -18,11 +18,6 @@ public class checkWin {
 				else { value [i][j] = 0;}
 			}
 		}
-		for (int i = 0; i < 7; i ++){
-			for (int j = 0; j <6; j ++){
-				System.out.println(i +" " + j +" " + value [i][j]);
-			}
-		}
 		return value;
 	}
 	
@@ -42,8 +37,6 @@ public class checkWin {
 		for (int row = 5; row >= 0; row --){
 			for (int col = 0; col < 4; col ++){ // don't check last three, as that would result in out of bounds
 				total = value[col][row] + value[col + 1][row] + value[col + 2][row] +value[col+3][row]; // adds up the total
-			//	System.out.println(total);
-				//System.out.println(value[row][col] + " " +value[row][col+1] +" " + value[row][col+2] +" " +value[row][col +3]);
 				if (total == 4 | total == -4){
 					int [] [] winPos = {{row, col}, {row, col+1},{row, col+2},{row, col+3}};
 					setPos(winPos);
