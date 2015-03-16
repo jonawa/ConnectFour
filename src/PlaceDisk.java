@@ -20,6 +20,10 @@ public class PlaceDisk {
 	// must keep track of positions of the discs
 	static int[][] positions = new int[7][6];
 	
+	public static void updateArray(int[][] restore){
+		positions = restore;
+	}
+	
 	// places and draws a disc at the place the player clicked
 	static void placeDisc(Point p, String player) {
 		if (player == "Red")
