@@ -2,10 +2,10 @@
 // check if the current board has four disks in a row od the same colour
 public class checkWin {
 	
-	private static int total = 0;
-	private static int [][] winPos = new int [4][2];
+	static int total = 0;
+	static int [][] winPos = new int [4][2];
 	
-	private static int [][] duplicate (int[][]positions){
+	public static int [][] duplicate (int[][]positions){
 		int [][] value = new int [7][6];
 		for (int i = 0; i < 7; i ++){
 			for (int j = 0; j < 6; j ++){
@@ -25,7 +25,7 @@ public class checkWin {
 		return winPos;
 	}
 	
-	private static void setPos (int [][] win){
+	public static void setPos (int [][] win){
 		winPos = win;
 	}
 	
@@ -49,7 +49,7 @@ public class checkWin {
 		// for cols		
 		for (int col = 0; col < 7; col ++){
 			for (int row = 2; row >= 0; row --){ // don't check last three, as that would result in out of bounds
-				total = value[col][row] + value[col][row + 1] + value[col][row + 2] +value[col][row]; // adds up the total
+				total = value[col][row] + value[col][row + 1] + value[col][row + 2] +value[col][row+3]; // adds up the total
 				if (total == 4 | total == -4){
 					System.out.println(total);
 					int [] [] winPos = {{row, col}, {row + 1,col},{row + 2,col},{row+3, col}};

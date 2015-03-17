@@ -17,6 +17,9 @@ import java.io.IOException;
 
 public class ConnectFour extends JFrame implements MouseListener {
 
+	int x = 20;
+	int size = 20;
+
 	// initialize current player
 	static checkWin check;
 	static currentPlayer Player = new currentPlayer();
@@ -28,7 +31,6 @@ public class ConnectFour extends JFrame implements MouseListener {
 	Color colour = Color.BLACK;
 	int xPos, yPos;
 	static JLabel status;
-
 
 	// at the beginning, sets the program to start mode so that the counters are
 	// not drawn
@@ -87,14 +89,17 @@ public class ConnectFour extends JFrame implements MouseListener {
 			startButton.setBounds(20, 290, 100, 25);
 
 			// when user is done placing circles
-			Button endButton = new Button("Done Turn");
-			endButton.setBounds(20, 330, 100, 25);
+			Button endButton = new Button("ShowWin");
+			//endButton.setBounds(20, 330, 100, 25);
+			endButton.setBounds(20, 410, 100, 25);
 
 			Button saveButton = new Button("Save Game");
-			saveButton.setBounds(20, 370, 100, 25);
+			//saveButton.setBounds(20, 370, 100, 25);
+			saveButton.setBounds(20, 330, 100, 25);
 
 			Button loadButton = new Button("Load Game");
-			loadButton.setBounds(20, 410, 100, 25);
+			//loadButton.setBounds(20, 410, 100, 25);
+			loadButton.setBounds(20, 370, 100, 25);
 
 			// add an action listener, if this button is pressed, start a new
 			// game
@@ -110,7 +115,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 							positions[i][j] = 0;
 							repaint();
 						}
-				}
+					}
 
 					if (start == false) {
 						start = true;
@@ -126,9 +131,10 @@ public class ConnectFour extends JFrame implements MouseListener {
 
 			});
 
-			// when end turn is pressed
+			/*// when end turn is pressed
 			endButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
 					// compare red turns with blue turns
 					for (int i = 0; i < 7; i++) {
 						for (int j = 0; j < 6; j++) {
@@ -178,9 +184,21 @@ public class ConnectFour extends JFrame implements MouseListener {
 						progress = show.show(positions, total);
 						colour = show.getColour();
 						System.out.println(total);
+=======
+					
+					showWin show = new showWin();
+					checkWin check = new checkWin();
+					total = check.checkWin(positions);
+					if (total == 1 | total == 2) {
+						winPos = check.getPos();
+						start = false;
+>>>>>>> a944f5e71f5beda696b09f4c2078f3ac6f2b20b1
 					}
+
+					progress = show.show(positions, total);
+					colour = show.getColour();
 				}
-			});
+			});*/
 
 			// save the current game state into a text file
 			saveButton.addActionListener(new ActionListener() {
@@ -214,7 +232,6 @@ public class ConnectFour extends JFrame implements MouseListener {
 
 			// add the button to the panel
 			add(startButton);
-			add(endButton);
 			add(saveButton);
 			add(loadButton);
 		}
@@ -228,12 +245,14 @@ public class ConnectFour extends JFrame implements MouseListener {
 
 			// clears the screen (overwrites the other circles)
 			g2d.clearRect(0, 0, 1000, 750);
-			
+
+			showWin show = new showWin();
 
 			g2d.setColor(colour);
-			g2d.setFont(new Font("Ariel", Font.BOLD, 20));
-			g2d.drawString(progress, 400, 20);
-			
+
+			g2d.setFont(new Font("Ariel", Font.BOLD, size));
+			g2d.drawString(progress, 400, x);
+
 			g2d.setColor(Color.BLACK);
 
 			// each box is 100 x 100
@@ -312,8 +331,8 @@ public class ConnectFour extends JFrame implements MouseListener {
 							+ winPos[i][0] * DISC_RADIUS, 25, 25);
 				}
 			}
-		//	showWin show = new showWin();
-		//	show.drawDots(positions);
+			// showWin show = new showWin();
+			// show.drawDots(positions);
 
 			repaint();
 
@@ -330,29 +349,37 @@ public class ConnectFour extends JFrame implements MouseListener {
 		}
 	}
 
-	// function to make round x and y coordinates so circles "snap" in place
-	// long roundUp(long n, long m) {
-	// return n >= 0 ? (n / m) * m : ((n - m + 1) / m) * m;
-	// }
 
 	// get x and y coordinates for where user has clicked and prints to console
 	public void mouseClicked(MouseEvent e) {
 		// get x and y coordinates
 		xPos = e.getX();
 		yPos = e.getY();
+		if (start == true) {
 
-		// if user clicks blue icon, set turn to blue
-		if (xPos > 20 && xPos < 120 && yPos > 90 && yPos < 190) {
-			Player.setPlayer("Blue");
-		}
-		// if user clicks red icon, set turn to red
-		if (xPos > 875 && xPos < 975 && yPos > 90 && yPos < 190) {
-			Player.setPlayer("Red");
-		}
+			// make sure circles are in bounds of the board
+			if (xPos > 100 && xPos < 840 && yPos > 30 && yPos < 690) {
+				placeDisc(new Point(xPos, yPos), Player.getPlayer());
 
-		// make sure circles are in bounds of the board
-		if (xPos > 100 && xPos < 840 && yPos > 30 && yPos < 690) {
-			placeDisc(new Point(xPos, yPos), Player.getPlayer());
+				try {
+					Check.Update(positions);
+					total = Check.returnTotal();
+					winPos = Check.returnPos();
+					if (total == 1 | total == 2) {
+						showWin show = new showWin();
+						progress = show.show(positions, total);
+						colour = show.getColour();
+					}
+					else if (total == -1 ){
+						progress = "GAME OVER";
+						colour = Color.magenta;
+					}
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}
 		}
 	}
 
