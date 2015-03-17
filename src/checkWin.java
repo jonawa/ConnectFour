@@ -2,8 +2,8 @@
 // check if the current board has four disks in a row od the same colour
 public class checkWin {
 	
-	static int total = 0;
-	static int [][] winPos = new int [4][2];
+	private static int total = 0;
+	private static int [][] winPos = new int [4][2];
 	
 	private static int [][] duplicate (int[][]positions){
 		int [][] value = new int [7][6];

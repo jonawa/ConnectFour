@@ -32,7 +32,6 @@ public class showWin extends ConnectFour{
 			x.colour = Color.black;
 			x.progress = "Game in Progess";
 		}
-		System.out.println(total);
 		setColour(x.colour);
 		return x.progress;
 	}
@@ -45,21 +44,4 @@ public class showWin extends ConnectFour{
 		return colour;
 	}
 	
-
-	
-	 protected void drawDots(Graphics g, int [] positions) {
-		 
-		super.paintComponents(g);
-		Graphics2D g2d = (Graphics2D) g; // create 2d objectà
-		int DISC_RADIUS = 100;
-		g2d.setColor(Color.black);
-		if (x.total == 1 | x.total == 2) {
-			for (int i = 0; i < 4; i++) {
-				g2d.fillOval(180 + winPos[i][1] * DISC_RADIUS, 130
-						+ winPos[i][0] * DISC_RADIUS, 25, 25);
-			}
-		}
-		 
-	}
-
 }
