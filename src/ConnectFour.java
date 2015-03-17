@@ -177,6 +177,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 						if (total == 1 | total == 2){winPos = check.getPos();}
 						progress = show.show(positions, total);
 						colour = show.getColour();
+						System.out.println(total);
 					}
 				}
 			});
