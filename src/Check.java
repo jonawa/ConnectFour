@@ -17,6 +17,11 @@ public class Check {
 			
 			// if no then call on checkWinability to check if the move causes a game over
 	
+	static int [][] pos;
+	static int total;
+	static Color colour;
+	static String progress;
+	
 	static void Update(int[][]positions) throws FileNotFoundException{
 		ConnectFour game = new ConnectFour();
 
@@ -50,22 +55,37 @@ public class Check {
 			System.out.println("not winable");
 			game.start = false;
 			game.progress = "GAME OVER";
+			total = -1;
 		}
 		else {
 			showWin show = new showWin();
 			checkWin check = new checkWin();
-			int total = check.checkWin(positions);
+			total = check.checkWin(positions);
 			if (total == 1 | total == 2){
 				game.winPos = check.getPos(); 
 				game.start = false;
 				game.progress = show.show(positions, total);
-				game.colour = show.getColour();
-				game.progress = show.show(positions, total);
+				total = check.checkWin(positions);
+				
+				if (total == 1 | total == 2) {
+					pos = check.getPos();
+					game.start = false;
+				}
+				colour = show.getColour();
+				progress = show.show(positions, total);
 				show.setColour(Color.MAGENTA);
 				game.colour = show.getColour();
 			}
 			
 		}
 		
+	}
+	
+	public static int [][] returnPos (){
+		return pos;
+	}
+	
+	public static int returnTotal(){
+		return total;
 	}
 }

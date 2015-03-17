@@ -1,18 +1,9 @@
 import java.awt.Point;
 
 // this class is used by Move or Restore 
-// uses Memory 
+
 // strictly handles the GUI of placing a disk on the board
 public class PlaceDisk {
-	
-	// display desired move disk on game board
-	
-	// function 
-			// input: the column of the mouse click 
-			// taking into account: gravity and memory 
-	
-	
-	
 	
 	// the radius of each disc
 	private static final int DISC_RADIUS = 100;

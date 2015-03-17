@@ -49,7 +49,7 @@ public class checkWin {
 		// for cols		
 		for (int col = 0; col < 7; col ++){
 			for (int row = 2; row >= 0; row --){ // don't check last three, as that would result in out of bounds
-				total = value[col][row] + value[col][row + 1] + value[col][row + 2] +value[col][row]; // adds up the total
+				total = value[col][row] + value[col][row + 1] + value[col][row + 2] +value[col][row+3]; // adds up the total
 				if (total == 4 | total == -4){
 					int [] [] winPos = {{row, col}, {row + 1,col},{row + 2,col},{row+3, col}};
 					setPos(winPos);

@@ -131,7 +131,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 
 			});
 
-			// when end turn is pressed
+			/*// when end turn is pressed
 			endButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
@@ -146,7 +146,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 					progress = show.show(positions, total);
 					colour = show.getColour();
 				}
-			});
+			});*/
 
 			// save the current game state into a text file
 			saveButton.addActionListener(new ActionListener() {
@@ -180,7 +180,6 @@ public class ConnectFour extends JFrame implements MouseListener {
 
 			// add the button to the panel
 			add(startButton);
-			add(endButton);
 			add(saveButton);
 			add(loadButton);
 		}
@@ -298,10 +297,6 @@ public class ConnectFour extends JFrame implements MouseListener {
 		}
 	}
 
-	// function to make round x and y coordinates so circles "snap" in place
-	// long roundUp(long n, long m) {
-	// return n >= 0 ? (n / m) * m : ((n - m + 1) / m) * m;
-	// }
 
 	// get x and y coordinates for where user has clicked and prints to console
 	public void mouseClicked(MouseEvent e) {
@@ -316,6 +311,17 @@ public class ConnectFour extends JFrame implements MouseListener {
 
 				try {
 					Check.Update(positions);
+					total = Check.returnTotal();
+					winPos = Check.returnPos();
+					if (total == 1 | total == 2) {
+						showWin show = new showWin();
+						progress = show.show(positions, total);
+						colour = show.getColour();
+					}
+					else if (total == -1 ){
+						progress = "GAME OVER";
+						colour = Color.magenta;
+					}
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-// this class is used by Move, PlaceDisk and Restore
+// this class is used by PlaceDisk and Restore
 public class Memory {
 	
 	static int[][] savedPositions = new int[7][6];
