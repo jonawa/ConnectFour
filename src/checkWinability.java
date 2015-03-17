@@ -2,8 +2,6 @@
 
 // if it is no longer possible to win the game, game over 
 public class checkWinability {
-	static int total = 0;
-	static int [][] winPos = new int [4][2];
 	
 	public static int [][] duplicate (int[][]positions){
 		int [][] value = new int [7][6];
@@ -20,52 +18,64 @@ public class checkWinability {
 		}
 		return value;
 	}
-	
-	public static int [][] getPos (){
-		return winPos;
-	}
-	
-	public static void setPos (int [][] win){
-		winPos = win;
-	}
 
-	private boolean checkWinability(int [][] positions) {
-		
+	static boolean check(int [][] positions) {
+				
 		int [][] value = duplicate(positions);
 		
-		for (int col = 0; col < 7; col ++){
-			for(int row = 0; row <6; row ++){				
-				if (col<4){
-					if (row<3){
-						if (value[col+1][row+1] == value[col][row] || value[col+1][row+1] == 0) {
-							if (value[col+2][row+2] == value[col][row] || value[col+2][row+2] == 0) {
-								if (value[col+3][row+3] == value[col][row] || value[col+3][row+3] == 0) {
-									return true; // return true if not game over
-								}
-							}
-						}
-					}
-					if (row>2){
-						if (value[col+1][row-1] == value[col][row] || value[col+1][row-1] == 0) {
-							if (value[col+2][row-2] == value[col][row] || value[col+2][row-2] == 0) {
-								if (value[col+3][row-3] == value[col][row] || value[col+3][row-3] == 0) {
-									return true; // return true if not game over
+		// for rows
+				for (int row = 5; row >= 0; row --){
+					for (int col = 0; col < 4; col ++){ // don't check last three, as that would result in out of bounds
+						if (value[col][row] == value[col + 1][row] || 0 == value[col + 1][row] ){
+							if (value[col][row] == value[col + 2][row] || 0 == value[col + 2][row] ){
+								if (value[col][row] == value[col + 3][row] || 0 == value[col + 3][row] ){
+									return true;
 								}
 							}
 						}
 					}
 				}
-				else {
-					if (value[col][row+1] == value[col][row] || value[col][row+1] == 0) {
-						if (value[col][row+2] == value[col][row] || value[col][row+2] == 0) {
-							if (value[col][row+3] == value[col][row] || value[col][row+3] == 0) {
-								return true; // return true if not game over
+				
+				// for cols		
+				for (int col = 0; col < 7; col ++){
+					for (int row = 2; row >= 0; row --){ // don't check last three, as that would result in out of bounds
+						if (value[col][row] == value[col][row + 1] || 0 == value[col][row + 1] ){
+							if (value[col][row] == value[col][row + 2] || 0 == value[col][row + 2] ){
+								if (value[col][row] == value[col][row + 3] || 0 == value[col][row + 3] ){
+									return true;
+								}
 							}
 						}
 					}
 				}
-			}
-		}
-		return false; 
+
+				// for left diagonal
+				for (int col = 6; col > 2; col --){// don't check last 3, as that would cause overflow
+					for (int row = 5; row > 2; row --){ // don't check last three, as that would result in out of bounds
+						if (value[col][row] == value[col - 1][row- 1] || 0 == value[col- 1][row- 1] ){
+							if (value[col][row] == value[col - 2][row - 2] || 0 == value[col - 2][row - 2] ){
+								if (value[col][row] == value[col -3][row-3] || 0 == value[col - 3][row-3] ){
+									return true;
+								}
+							}
+						}
+					}
+				}		
+
+				// for right diagonal
+				for (int col = 0; col < 4; col ++){//dont check last 3, as that would cause overflow
+					for (int row = 5; row > 2; row --){ // don't check last three, as that would result in out of bounds
+						if (value[col][row] == value[col + 1][row- 1] || 0 == value[col+ 1][row- 1] ){
+							if (value[col][row] == value[col + 2][row - 2] || 0 == value[col + 2][row - 2] ){
+								if (value[col][row] == value[col +3][row-3] || 0 == value[col + 3][row-3] ){
+									return true;
+								}
+							}
+						}
+					}
+				}
+		
+		return false;
 	}
+
 }

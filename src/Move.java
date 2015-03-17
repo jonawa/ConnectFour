@@ -9,30 +9,31 @@ import java.awt.event.MouseEvent;
 	// adding to array for memory needed for gravity 
 
 public class Move {
-	int xPos;
-	int yPos;
+	static int xPos;
+	static int yPos;
 	static currentPlayer Player = new currentPlayer();
-	PlaceDisk showDisk = new PlaceDisk();
+	static PlaceDisk showDisk = new PlaceDisk();
 	
 	// call PlaceDisk to display the move 
 	
-	public void mouseClicked(MouseEvent e) {
+	public static void LegalMoveMade(int x,int y) {
 		// get x and y coordinates
-		xPos = e.getX();
-		yPos = e.getY();
+		xPos = x;
+		yPos = y;
 
-		// if user clicks blue icon, set turn to blue
+		/*// if user clicks blue icon, set turn to blue
 		if (xPos > 20 && xPos < 120 && yPos > 90 && yPos < 190) {
 			Player.setPlayer("Blue");
 		}
 		// if user clicks red icon, set turn to red
 		if (xPos > 875 && xPos < 975 && yPos > 90 && yPos < 190) {
 			Player.setPlayer("Red");
-		}
-
+		}*/
+		
+		
 		// make sure circles are in bounds of the board
 		if (xPos > 100 && xPos < 840 && yPos > 30 && yPos < 690) {
-			showDisk.placeDisc(new Point(xPos, yPos), Player.getPlayer());
+			PlaceDisk.place(new Point(xPos, yPos), Player.getPlayer());
 		}
 	}
 	// call Memory to store the  move 

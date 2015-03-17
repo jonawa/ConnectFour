@@ -17,6 +17,9 @@ import java.io.IOException;
 
 public class ConnectFour extends JFrame implements MouseListener {
 
+	int x = 20;
+	int size = 20;
+
 	// initialize current player
 	static checkWin check;
 	static currentPlayer Player = new currentPlayer();
@@ -28,7 +31,6 @@ public class ConnectFour extends JFrame implements MouseListener {
 	Color colour = Color.BLACK;
 	int xPos, yPos;
 	static JLabel status;
-
 
 	// at the beginning, sets the program to start mode so that the counters are
 	// not drawn
@@ -87,14 +89,17 @@ public class ConnectFour extends JFrame implements MouseListener {
 			startButton.setBounds(20, 290, 100, 25);
 
 			// when user is done placing circles
-			Button endButton = new Button("Done Turn");
-			endButton.setBounds(20, 330, 100, 25);
+			Button endButton = new Button("ShowWin");
+			//endButton.setBounds(20, 330, 100, 25);
+			endButton.setBounds(20, 410, 100, 25);
 
 			Button saveButton = new Button("Save Game");
-			saveButton.setBounds(20, 370, 100, 25);
+			//saveButton.setBounds(20, 370, 100, 25);
+			saveButton.setBounds(20, 330, 100, 25);
 
 			Button loadButton = new Button("Load Game");
-			loadButton.setBounds(20, 410, 100, 25);
+			//loadButton.setBounds(20, 410, 100, 25);
+			loadButton.setBounds(20, 370, 100, 25);
 
 			// add an action listener, if this button is pressed, start a new
 			// game
@@ -110,7 +115,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 							positions[i][j] = 0;
 							repaint();
 						}
-				}
+					}
 
 					if (start == false) {
 						start = true;
@@ -129,55 +134,17 @@ public class ConnectFour extends JFrame implements MouseListener {
 			// when end turn is pressed
 			endButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					// compare red turns with blue turns
-					for (int i = 0; i < 7; i++) {
-						for (int j = 0; j < 6; j++) {
-							// check to see if each tile is supported by one
-							// below it
-							if (positions[i][j] != 0 && j != 5) {
-								for (int down = j; down < 6; down++) {
-									if (positions[i][down] == 0) {
-										// mark with error
-										positions[i][down] = positions[i][j];
-										positions[i][j] = 0;
-										// error = true;
-									}
-								}
-							}
-
-							// record counts of each color tile
-							if (positions[i][j] == 1) {
-								redCount++;
-							} else if (positions[i][j] == 2) {
-								blueCount++;
-							}
-						}
+					
+					showWin show = new showWin();
+					checkWin check = new checkWin();
+					total = check.checkWin(positions);
+					if (total == 1 | total == 2) {
+						winPos = check.getPos();
+						start = false;
 					}
-					// System.out.println (blueCount + " " + redCount);
-					if (error)
-						JOptionPane
-								.showMessageDialog(null,
-										"ERROR: Tiles unsupported by any discs underneath! (Marked by yellow)");
 
-					// if red has more turns than blue.. show invalid move popup
-					/*
-					 * else if (redCount > blueCount) {
-					 * JOptionPane.showMessageDialog(null,
-					 * "ERROR: Red had more turns than Blue!"); } // if blue has
-					 * more turns than red.. show invalid move popup else if
-					 * (blueCount > redCount) {
-					 * JOptionPane.showMessageDialog(null,
-					 * "ERROR: Blue had more turns than Red!"); }
-					 */
-					// no errors, check for win;
-					else { // gets the information for new status changes
-						showWin show = new showWin();
-						checkWin check = new checkWin();
-						total = check.checkWin(positions);
-						if (total == 1 | total == 2){winPos = check.getPos();}
-						progress = show.show(positions, total);
-						colour = show.getColour();
-					}
+					progress = show.show(positions, total);
+					colour = show.getColour();
 				}
 			});
 
@@ -227,12 +194,14 @@ public class ConnectFour extends JFrame implements MouseListener {
 
 			// clears the screen (overwrites the other circles)
 			g2d.clearRect(0, 0, 1000, 750);
-			
+
+			showWin show = new showWin();
 
 			g2d.setColor(colour);
-			g2d.setFont(new Font("Ariel", Font.BOLD, 20));
-			g2d.drawString(progress, 400, 20);
-			
+
+			g2d.setFont(new Font("Ariel", Font.BOLD, size));
+			g2d.drawString(progress, 400, x);
+
 			g2d.setColor(Color.BLACK);
 
 			// each box is 100 x 100
@@ -311,8 +280,8 @@ public class ConnectFour extends JFrame implements MouseListener {
 							+ winPos[i][0] * DISC_RADIUS, 25, 25);
 				}
 			}
-		//	showWin show = new showWin();
-		//	show.drawDots(positions);
+			// showWin show = new showWin();
+			// show.drawDots(positions);
 
 			repaint();
 
@@ -339,19 +308,20 @@ public class ConnectFour extends JFrame implements MouseListener {
 		// get x and y coordinates
 		xPos = e.getX();
 		yPos = e.getY();
+		if (start == true) {
 
-		// if user clicks blue icon, set turn to blue
-		if (xPos > 20 && xPos < 120 && yPos > 90 && yPos < 190) {
-			Player.setPlayer("Blue");
-		}
-		// if user clicks red icon, set turn to red
-		if (xPos > 875 && xPos < 975 && yPos > 90 && yPos < 190) {
-			Player.setPlayer("Red");
-		}
+			// make sure circles are in bounds of the board
+			if (xPos > 100 && xPos < 840 && yPos > 30 && yPos < 690) {
+				placeDisc(new Point(xPos, yPos), Player.getPlayer());
 
-		// make sure circles are in bounds of the board
-		if (xPos > 100 && xPos < 840 && yPos > 30 && yPos < 690) {
-			placeDisc(new Point(xPos, yPos), Player.getPlayer());
+				try {
+					Check.Update(positions);
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}
 		}
 	}
 

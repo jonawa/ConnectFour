@@ -1,3 +1,6 @@
+import java.awt.Color;
+import java.io.FileNotFoundException;
+
 // this class is used by ConnectFour
 // uses checkWinability, checkWin, showWin and Move
 
@@ -14,4 +17,55 @@ public class Check {
 			
 			// if no then call on checkWinability to check if the move causes a game over
 	
+	static void Update(int[][]positions) throws FileNotFoundException{
+		ConnectFour game = new ConnectFour();
+
+		// gravity 
+		for (int i = 0; i < 7; i++) {
+			for (int j = 0; j < 6; j++) {
+				// check to see if each tile is supported by one
+				// below it
+				if (positions[i][j] != 0 && j != 5) {
+					for (int down = j; down < 6; down++) {
+						if (positions[i][down] == 0) {
+							// mark with error
+							positions[i][down] = positions[i][j];
+							positions[i][j] = 0;
+							// error = true;
+						}
+					}
+				}
+
+				// record counts of each color tile
+				if (positions[i][j] == 1) {
+					game.redCount++;
+				} else if (positions[i][j] == 2) {
+					game.blueCount++;
+				}
+			}
+		}
+		
+		boolean winable = checkWinability.check(positions);
+		if (winable == false ) { 
+			System.out.println("not winable");
+			game.start = false;
+			game.progress = "GAME OVER";
+		}
+		else {
+			showWin show = new showWin();
+			checkWin check = new checkWin();
+			int total = check.checkWin(positions);
+			if (total == 1 | total == 2){
+				game.winPos = check.getPos(); 
+				game.start = false;
+				game.progress = show.show(positions, total);
+				game.colour = show.getColour();
+				game.progress = show.show(positions, total);
+				show.setColour(Color.MAGENTA);
+				game.colour = show.getColour();
+			}
+			
+		}
+		
+	}
 }

@@ -8,20 +8,20 @@ import java.awt.Graphics2D;
 
 public class showWin extends ConnectFour{
 	// if a game is won, a dot is displayed on the center of each of the four winning discs    
-	private Color colour;
+	private static Color colour;
 	ConnectFour x = new ConnectFour ();
-	
+		
 	public String show (int [][] positions, int total){
 
 		if (total == 1 | total == 2) {
 			//x.winPos = check.getPos();
 			if (total == 1) {
 				x.colour = Color.red;
-				x.progress = "Red Wins!";
+				x.progress = "RED WINS!";
 
 			} else if (total == 2) {
 				x.colour = Color.blue;
-				x.progress = "Blue Wins!";
+				x.progress = "BLUE WINS!";
 
 			}
 		} else if (total == 0) {
@@ -36,12 +36,11 @@ public class showWin extends ConnectFour{
 		return x.progress;
 	}
 	
-	private void setColour (Color col){
+	static void setColour (Color col){
 		colour = col;
 	}
 	
 	public Color getColour (){
 		return colour;
 	}
-	
 }
