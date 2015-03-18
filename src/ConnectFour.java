@@ -1,7 +1,7 @@
 /*
  Class connectFour
  Coded by: Maya Ramamurthy, Randa Mohsen, Manaar Hyder, Danielle Shrewd, and James Lee
- Due: Feb. 26, 2015
+ Due: March 18, 2015
  */
 import javax.swing.*;
 
@@ -89,7 +89,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 			startButton.setBounds(20, 290, 100, 25);
 
 			// when user is done placing circles
-			Button endButton = new Button("ShowWin");
+			Button endButton = new Button("End Game");
 			//endButton.setBounds(20, 330, 100, 25);
 			endButton.setBounds(20, 410, 100, 25);
 
@@ -121,9 +121,8 @@ public class ConnectFour extends JFrame implements MouseListener {
 						start = true;
 						currentPlayer.Random();
 					}
-					for (int i = 0; i < 4; i++) {
-						winPos[i] = null;
-					}
+					
+					winPos = new int [4][4];
 					total = 0;
 					error = false;
 					colour = Color.black;
@@ -131,76 +130,16 @@ public class ConnectFour extends JFrame implements MouseListener {
 
 			});
 
-			/*// when end turn is pressed
+			// when end turn is pressed
 			endButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
-					// compare red turns with blue turns
-					for (int i = 0; i < 7; i++) {
-						for (int j = 0; j < 6; j++) {
-							// check to see if each tile is supported by one
-							// below it
-							if (positions[i][j] != 0 && j != 5) {
-								for (int down = j; down < 6; down++) {
-									if (positions[i][down] == 0) {
-										// mark with error
-										positions[i][down] = positions[i][j];
-										positions[i][j] = 0;
-										// error = true;
-									}
-								}
-							}
-
-							// record counts of each color tile
-							if (positions[i][j] == 1) {
-								redCount++;
-							} else if (positions[i][j] == 2) {
-								blueCount++;
-							}
-						}
-					}
-					// System.out.println (blueCount + " " + redCount);
-					if (error)
-						JOptionPane
-								.showMessageDialog(null,
-										"ERROR: Tiles unsupported by any discs underneath! (Marked by yellow)");
-
-					// if red has more turns than blue.. show invalid move popup
-					/*
-					 * else if (redCount > blueCount) {
-					 * JOptionPane.showMessageDialog(null,
-					 * "ERROR: Red had more turns than Blue!"); } // if blue has
-					 * more turns than red.. show invalid move popup else if
-					 * (blueCount > redCount) {
-					 * JOptionPane.showMessageDialog(null,
-					 * "ERROR: Blue had more turns than Red!"); }
-					 */
-					// no errors, check for win;
-					else { // gets the information for new status changes
-						showWin show = new showWin();
-						checkWin check = new checkWin();
-						total = check.checkWin(positions);
-						if (total == 1 | total == 2){winPos = check.getPos();}
-						progress = show.show(positions, total);
-						colour = show.getColour();
-						System.out.println(total);
-=======
-					
-					showWin show = new showWin();
-					checkWin check = new checkWin();
-					total = check.checkWin(positions);
-					if (total == 1 | total == 2) {
-						winPos = check.getPos();
-						start = false;
->>>>>>> a944f5e71f5beda696b09f4c2078f3ac6f2b20b1
-					}
-
-					progress = show.show(positions, total);
-					colour = show.getColour();
+					System.exit(0);
 				}
-			});*/
 
-			// save the current game state into a text file
+
+			});
+
+		// save the current game state into a text file
 			saveButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					try {
@@ -234,6 +173,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 			add(startButton);
 			add(saveButton);
 			add(loadButton);
+			add(endButton);
 		}
 
 		// the main function for drawing graphics
