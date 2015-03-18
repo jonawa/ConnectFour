@@ -119,7 +119,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 
 					if (start == false) {
 						start = true;
-						currentPlayer.Random();
+						Player.getPlayer();
 					}
 					
 					winPos = new int [4][4];
@@ -295,7 +295,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 		// get x and y coordinates
 		xPos = e.getX();
 		yPos = e.getY();
-		if (start == true) {
+		if (start == true) { 
 
 			// make sure circles are in bounds of the board
 			if (xPos > 100 && xPos < 840 && yPos > 30 && yPos < 690) {

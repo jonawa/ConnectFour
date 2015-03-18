@@ -5,21 +5,30 @@ public class checkWin {
 	static int total = 0;
 	static int [][] winPos = new int [4][2];
 	
-	public static int [][] duplicate (int[][]positions){
-		int [][] value = new int [7][6];
-		for (int i = 0; i < 7; i ++){
-			for (int j = 0; j < 6; j ++){
-				if (positions[i][j] == 1){
-					value [i][j] = 1; // if red
+	// a function that creates values for each position in the game 
+		public static int[][] duplicate(int[][] positions) {
+			int[][] value = new int[7][6];
+			// for each column
+			for (int i = 0; i < 7; i++) {
+				//for each row
+				for (int j = 0; j < 6; j++) {
+					// if the position holds 1 (representing red)  then the value is 1
+					if (positions[i][j] == 1) {
+						value[i][j] = 1; // if red
+					} 
+					// if the position holds 2 (representing blue) then the value is -1 
+					else if (positions[i][j] == 2) {
+						value[i][j] = -1; // if blue
+					} 
+					//otherwise the value is 0 
+					else {
+						value[i][j] = 0;
+					}
 				}
-				else if (positions[i][j] == 2){
-					value [i][j] = -1; // if blue
-				}
-				else { value [i][j] = 0;}
 			}
+			// return the 2-d array of values 
+			return value;
 		}
-		return value;
-	}
 	
 	public static int [][] getPos (){
 		return winPos;
@@ -29,7 +38,7 @@ public class checkWin {
 		winPos = win;
 	}
 	
-	public static int checkWin (int [][] positions){
+	public int checkWin (int [][] positions){
 		// places the array into a duplicate one
 		int [][] value = duplicate(positions); // gets what is in each position
 		
@@ -51,7 +60,6 @@ public class checkWin {
 			for (int row = 2; row >= 0; row --){ // don't check last three, as that would result in out of bounds
 				total = value[col][row] + value[col][row + 1] + value[col][row + 2] +value[col][row+3]; // adds up the total
 				if (total == 4 | total == -4){
-					System.out.println(total);
 					int [] [] winPos = {{row, col}, {row + 1,col},{row + 2,col},{row+3, col}};
 					setPos(winPos);
 					if (total == 4) {return 1;} 		// if red win
