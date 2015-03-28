@@ -52,7 +52,6 @@ public class Check {
 		
 		boolean winable = checkWinability.check(positions);
 		if (winable == false ) { 
-			System.out.println("not winable");
 			game.start = false;
 			game.progress = "GAME OVER";
 			total = -1;

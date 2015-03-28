@@ -14,15 +14,14 @@ public class PlaceDisk {
 	public static void updateArray(int[][] restore){
 		positions = restore;
 	}
-	
-	
 
 	public static void place(Point p, String player) {
 		if (player == "Red")
-			positions[(p.x - 140) / DISC_RADIUS][(p.y - 90) / DISC_RADIUS] = 1;
+			positions[(p.x - 140) / DISC_RADIUS][(p.y - 90) / DISC_RADIUS] 
+					= 1;
 		else if (player == "Blue")
-			positions[(p.x - 140) / DISC_RADIUS][(p.y - 90) / DISC_RADIUS] = 2;
-		//System.out.println((p.x - 140) / DISC_RADIUS + "," + (p.y - 30)/ DISC_RADIUS);
-		// check();
+			positions[(p.x - 140) / DISC_RADIUS][(p.y - 90) / DISC_RADIUS] 
+					= 2;
+
 	}
 }

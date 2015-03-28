@@ -1,7 +1,7 @@
 import java.io.IOException;
 
 // this class is used by ConnectFour
-// uses PlaceDisk
+// uses PlaceDisk and Memory
 
 // strictly game theory that allows the user to restore the game they saved
 public class Restore {
@@ -16,8 +16,4 @@ public Restore(){
 		int[][] newArray = gameMemory.loadGame();
 		restoreDisk.updateArray(newArray);
 	}
-	// calls class Memory to retrieve storing arrays
-	
-	// calls class PlaceDisk for all the disks recorded in the arrays
-
 }
