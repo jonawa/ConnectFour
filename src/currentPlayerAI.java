@@ -6,8 +6,10 @@ public class currentPlayerAI {
 	
 	static boolean computer = false;
 	static AI play = new AI();
+	static Minimax x = new Minimax();
 	static int [][] board = new int [7][6];
 	static String compCol, playCol;
+	static int playComp, playUser, row, col;
 	// players name is either Blue or Red
 	
 	// initialize it with None 
@@ -29,7 +31,14 @@ public class currentPlayerAI {
 		else if (computer == true){
 			//play.randMove(b);
 			computer = false;
-			play.minimax(0,-1000000,1000000, b);
+			x = new Minimax();
+		    x.minFlag = true;
+			x.start();
+			x.interrupt();
+			row = x.rowNextMove;
+		    col = x.colNextMove;
+		    x.Move(row, col, 2);
+		    board = x.gameBoard;
 			currentPlayer = compCol;
 		}
 		else if (computer == false){
@@ -54,6 +63,8 @@ public class currentPlayerAI {
 			setPlayer("Blue");
 			playCol = "Blue";
 			compCol = "Red";
+			playUser = 1;
+			playComp = 2;
 
 		}
 		// if the number is 2 then red is player 1 and blue is computer
@@ -62,6 +73,8 @@ public class currentPlayerAI {
 			setPlayer("Red");
 			playCol = "Red";
 			compCol = "Blue";
+			playUser = 2;
+			playComp = 1;
 
 		}
 	}

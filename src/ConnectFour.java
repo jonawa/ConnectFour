@@ -53,7 +53,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 																// polygon type
 
 	// must keep track of positions of the discs
-	int[][] positions = new int[7][6];
+	static int[][] positions = new int[7][6];
 	Memory saveGame;
 
 	// the radius of each disc
