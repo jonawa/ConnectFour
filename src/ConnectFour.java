@@ -22,7 +22,9 @@ public class ConnectFour extends JFrame implements MouseListener {
 
 	// initialize current player
 	static checkWin check;
-	static currentPlayer Player = new currentPlayer();
+	static currentPlayerAI Player = new currentPlayerAI();
+	static AI play = new AI();
+	boolean computer = false;
 
 	static int[][] winPos = new int[4][2];
 	int total = 0;
@@ -119,7 +121,8 @@ public class ConnectFour extends JFrame implements MouseListener {
 
 					if (start == false) {
 						start = true;
-						Player.getPlayer();
+						Player.getPlayer(positions);
+						positions = play.returnBoard();
 					}
 					
 					winPos = new int [4][4];
@@ -287,6 +290,8 @@ public class ConnectFour extends JFrame implements MouseListener {
 		} else if (player == "Blue") {
 			positions[(p.x - 140) / DISC_RADIUS][(p.y - 90) / DISC_RADIUS] = 2;
 		}
+		//positions = play.randMove(positions);
+	//	System.out.println(play.player);
 	}
 
 
@@ -296,10 +301,21 @@ public class ConnectFour extends JFrame implements MouseListener {
 		xPos = e.getX();
 		yPos = e.getY();
 		if (start == true) { 
-
+			/*if (computer == true){
+				positions = play.randMove(positions);
+				positions = play.returnBoard();
+				System.out.println(1);
+				computer = false;
+			}
+			else{
+				computer = true;
+				System.out.println(2);
+			}*/
 			// make sure circles are in bounds of the board
 			if (xPos > 100 && xPos < 840 && yPos > 30 && yPos < 690) {
-				placeDisc(new Point(xPos, yPos), Player.getPlayer());
+				
+				placeDisc(new Point(xPos, yPos), Player.getPlayer(positions));
+				positions = Player.returnBoard();
 
 				try {
 					Check.Update(positions);
