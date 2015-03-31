@@ -110,6 +110,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 					redCount = 0;
 					blueCount = 0;
 					progress = "Game in Progress";
+					Player.reset();
 
 					// set all positions to 0 (empty)
 					for (int i = 0; i < 7; i++) {
@@ -119,12 +120,11 @@ public class ConnectFour extends JFrame implements MouseListener {
 						}
 					}
 
-					if (start == false) {
+				//	if (start == false) {
 						start = true;
 						Player.getPlayer(positions);
 						positions = play.returnBoard();
-					}
-					
+				//	}
 					winPos = new int [4][4];
 					total = 0;
 					error = false;

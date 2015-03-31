@@ -15,6 +15,11 @@ public class currentPlayerAI {
 	// initialize it with None 
 	private static String currentPlayer = "None";
 	
+	public static void reset(){
+		currentPlayer = "None";
+		board = new int [7][6];
+	}
+	
 	// used to change the player's name to Red or Blue throughout the game 
 	private static void setPlayer(String string) {
 		currentPlayer = string;
@@ -25,20 +30,23 @@ public class currentPlayerAI {
 	}
 	//returns whether blue or red is the current player
 	public static String getPlayer(int [][] b){
+	//	System.out.print(b[6][5]);
 		if (currentPlayer == "None"){
 			Random();
 		}
 		else if (computer == true){
-			//play.randMove(b);
-			computer = false;
-			x = new Minimax();
-		    x.minFlag = true;
+		//	play.randMove(b);
+			play.minimax(0,-1000000,1000000,b);
+			board = play.returnBestMove(b);
+			//computer = false;
+			/*x = new Minimax();
+			x.minFlag = true;
 			x.start();
 			x.interrupt();
 			row = x.rowNextMove;
-		    col = x.colNextMove;
-		    x.Move(row, col, 2);
-		    board = x.gameBoard;
+			col = x.colNextMove;
+			x.Move(row, col, 2);
+			board = x.gameBoard;*/
 			currentPlayer = compCol;
 		}
 		else if (computer == false){

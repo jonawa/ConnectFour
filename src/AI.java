@@ -51,8 +51,8 @@ public class AI {
 	
 	public boolean isDraw(int [][]board) {
 		for(int row = 0;row < 5;row++) {
-			for(int col = 0;col < 7;col++) {
-				if(board[row][col] == 0) {
+			for(int col = 0;col < 6;col++) {
+				if(board[col][row] == 0) {
 					return false;
 				}
 			}
@@ -79,10 +79,11 @@ public class AI {
 		
 		int [][] lMoves = findAllLegalMoves(board);
 		
-		for(int move = 0;move < 7;move++) {
+		for(int move = 0;move < 6;move++) {
 			if(lMoves[move][0] == -1 || lMoves[move][1] == -1) {
 				continue;
 			} else {
+				if (b[lMoves[move][0]][lMoves[move][1]] == 0){
 				b[lMoves[move][0]][lMoves[move][1]] = 2;
 				int temp = minMove(depth + 1,alpha,beta,board);
 				b[lMoves[move][0]][lMoves[move][1]] = 0;
@@ -100,6 +101,7 @@ public class AI {
 				if(alpha >= beta) {
 				   return alpha;
 				}
+				}
 			}
 		}
 		return max;
@@ -112,17 +114,17 @@ public class AI {
 		if(m != 0) {
 			return m;
 		}
-		if(depth >= 6 || isDraw(board)) {
-		//	return analysis();
-			return m;
+		/*if(depth >= 6 || isDraw(board)) {
+			return analysis();
 		}
-		
+		*/
 		int [][] lMoves = findAllLegalMoves(board);
 		
-		for(int move = 0;move < 7;move++) {
+		for(int move = 0;move < 6;move++) {
 			if(lMoves[move][0] == -1 || lMoves[move][1] == -1) {
 				continue;
 			} else {
+				if (b[lMoves[move][0]][lMoves[move][1]] == 0){
 				b[lMoves[move][0]][lMoves[move][1]] = 1;
 				int temp = maxMove(depth + 1,alpha,beta,board);
 				b[lMoves[move][0]][lMoves[move][1]] = 0;
@@ -140,6 +142,7 @@ public class AI {
 				if(alpha >= beta) {
 				   return beta;
 			    }
+				}
 			}
 		}
 		return min;
