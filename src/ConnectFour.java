@@ -87,25 +87,57 @@ public class ConnectFour extends JFrame implements MouseListener {
 			requestFocusInWindow();
 
 			// create the start button
-			Button startButton = new Button("New Game");
-			startButton.setBounds(20, 290, 100, 25);
+			Button startButtonAI = new Button("New Game (AI)");
+			startButtonAI.setBounds(20, 290, 100, 25);
+			
+			Button startButton2P = new Button("New Game (2P)");
+			startButton2P.setBounds(20, 330, 100, 25);
 
 			// when user is done placing circles
 			Button endButton = new Button("End Game");
 			//endButton.setBounds(20, 330, 100, 25);
-			endButton.setBounds(20, 410, 100, 25);
+			endButton.setBounds(20, 450, 100, 25);
 
 			Button saveButton = new Button("Save Game");
 			//saveButton.setBounds(20, 370, 100, 25);
-			saveButton.setBounds(20, 330, 100, 25);
+			saveButton.setBounds(20, 370, 100, 25);
 
 			Button loadButton = new Button("Load Game");
 			//loadButton.setBounds(20, 410, 100, 25);
-			loadButton.setBounds(20, 370, 100, 25);
+			loadButton.setBounds(20, 410, 100, 25);
 
 			// add an action listener, if this button is pressed, start a new
 			// game
-			startButton.addActionListener(new ActionListener() {
+			startButtonAI.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					redCount = 0;
+					blueCount = 0;
+					progress = "Game in Progress";
+					Player.reset();
+
+					// set all positions to 0 (empty)
+					for (int i = 0; i < 7; i++) {
+						for (int j = 0; j < 6; j++) {
+							positions[i][j] = 0;
+							repaint();
+						}
+					}
+
+				//	if (start == false) {
+						start = true;
+						Player.getPlayer(positions);
+						positions = play.returnBoard();
+				//	}
+					winPos = new int [4][4];
+					total = 0;
+					error = false;
+					colour = Color.black;
+				}
+
+			});
+			
+			// start a new 2 player game
+			startButton2P.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					redCount = 0;
 					blueCount = 0;
@@ -173,7 +205,8 @@ public class ConnectFour extends JFrame implements MouseListener {
 			});
 
 			// add the button to the panel
-			add(startButton);
+			add(startButtonAI);
+			add(startButton2P);
 			add(saveButton);
 			add(loadButton);
 			add(endButton);
