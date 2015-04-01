@@ -6,7 +6,6 @@ public class currentPlayerAI {
 	
 	static boolean computer = false;
 	static AI play = new AI();
-	static Minimax x = new Minimax();
 	static int [][] board = new int [7][6];
 	static String compCol, playCol;
 	static int playComp, playUser, row, col;
