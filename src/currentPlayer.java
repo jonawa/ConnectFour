@@ -13,6 +13,11 @@ public class currentPlayer {
 	private static void setPlayer(String string) {
 		currentPlayer = string;
 	}
+	
+	public static void reset(){
+		currentPlayer = "None";
+	}
+	
 	//returns whether blue or red is the current player
 	public static String getPlayer(){
 		if (currentPlayer == "None"){

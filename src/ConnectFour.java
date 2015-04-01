@@ -22,9 +22,11 @@ public class ConnectFour extends JFrame implements MouseListener {
 
 	// initialize current player
 	static checkWin check;
-	static currentPlayerAI Player = new currentPlayerAI();
+	static currentPlayerAI PlayerAI = new currentPlayerAI();
+	static currentPlayer Player = new currentPlayer();
 	static AI play = new AI();
-	boolean computer = false;
+	boolean computer = false, user = false;
+	
 
 	static int[][] winPos = new int[4][2];
 	int total = 0;
@@ -112,9 +114,14 @@ public class ConnectFour extends JFrame implements MouseListener {
 				public void actionPerformed(ActionEvent e) {
 					redCount = 0;
 					blueCount = 0;
-					progress = "Game in Progress";
 					Player.reset();
 
+					if (start == false) {
+						start = true;
+						PlayerAI.getPlayer(positions);
+						positions = play.returnBoard();
+					}
+					
 					// set all positions to 0 (empty)
 					for (int i = 0; i < 7; i++) {
 						for (int j = 0; j < 6; j++) {
@@ -123,17 +130,15 @@ public class ConnectFour extends JFrame implements MouseListener {
 						}
 					}
 
-				//	if (start == false) {
-						start = true;
-						Player.getPlayer(positions);
-						positions = play.returnBoard();
-				//	}
+
+					progress = "Game in Progress";
+					user = false;
+					computer = true;
 					winPos = new int [4][4];
 					total = 0;
 					error = false;
 					colour = Color.black;
 				}
-
 			});
 			
 			// start a new 2 player game
@@ -141,8 +146,10 @@ public class ConnectFour extends JFrame implements MouseListener {
 				public void actionPerformed(ActionEvent e) {
 					redCount = 0;
 					blueCount = 0;
+				//	Player.reset();
+					Player.getPlayer();
+
 					progress = "Game in Progress";
-					Player.reset();
 
 					// set all positions to 0 (empty)
 					for (int i = 0; i < 7; i++) {
@@ -153,9 +160,9 @@ public class ConnectFour extends JFrame implements MouseListener {
 					}
 
 				//	if (start == false) {
-						start = true;
-						Player.getPlayer(positions);
-						positions = play.returnBoard();
+					start = true;
+					 computer = false;
+					 user = true;
 				//	}
 					winPos = new int [4][4];
 					total = 0;
@@ -334,21 +341,17 @@ public class ConnectFour extends JFrame implements MouseListener {
 		xPos = e.getX();
 		yPos = e.getY();
 		if (start == true) { 
-			/*if (computer == true){
-				positions = play.randMove(positions);
-				positions = play.returnBoard();
-				System.out.println(1);
-				computer = false;
-			}
-			else{
-				computer = true;
-				System.out.println(2);
-			}*/
 			// make sure circles are in bounds of the board
 			if (xPos > 100 && xPos < 840 && yPos > 30 && yPos < 690) {
-				
-				placeDisc(new Point(xPos, yPos), Player.getPlayer(positions));
-				positions = Player.returnBoard();
+				if (user == true){
+					placeDisc(new Point(xPos, yPos), Player.getPlayer());
+					
+				}
+				else {
+					placeDisc(new Point(xPos, yPos), PlayerAI.getPlayer(positions));
+					positions = PlayerAI.returnBoard();
+					progress = "Game in Progress: You are Player " + PlayerAI.playCol;
+				}
 
 				try {
 					Check.Update(positions);

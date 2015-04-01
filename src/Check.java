@@ -33,7 +33,7 @@ public class Check {
 				if (positions[i][j] != 0 && j != 5) {
 					for (int down = j; down < 6; down++) {
 						if (positions[i][down] == 0) {
-							// mark with error
+							// mark with error]
 							positions[i][down] = positions[i][j];
 							positions[i][j] = 0;
 							// error = true;
