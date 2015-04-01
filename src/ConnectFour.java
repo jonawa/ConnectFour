@@ -122,6 +122,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 						positions = play.returnBoard();
 					}
 					
+					System.out.println(PlayerAI.compCol);
 					// set all positions to 0 (empty)
 					for (int i = 0; i < 7; i++) {
 						for (int j = 0; j < 6; j++) {
@@ -131,7 +132,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 					}
 
 
-					progress = "Game in Progress";
+					progress = "Game in Progress: You are player " + PlayerAI.compCol;
 					user = false;
 					computer = true;
 					winPos = new int [4][4];
@@ -350,7 +351,6 @@ public class ConnectFour extends JFrame implements MouseListener {
 				else {
 					placeDisc(new Point(xPos, yPos), PlayerAI.getPlayer(positions));
 					positions = PlayerAI.returnBoard();
-					progress = "Game in Progress: You are Player " + PlayerAI.playCol;
 				}
 
 				try {

@@ -37,15 +37,6 @@ public class currentPlayerAI {
 		//	play.randMove(b);
 			play.minimax(0,-1000000,1000000,b);
 			board = play.returnBestMove(b);
-			//computer = false;
-			/*x = new Minimax();
-			x.minFlag = true;
-			x.start();
-			x.interrupt();
-			row = x.rowNextMove;
-			col = x.colNextMove;
-			x.Move(row, col, 2);
-			board = x.gameBoard;*/
 			currentPlayer = compCol;
 		}
 		else if (computer == false){
@@ -61,9 +52,7 @@ public class currentPlayerAI {
 
 		// randomly choosing a number between 1 or 2
 		int rand = 1 + (int) (Math.random() * 2);
-		rand = 1;
 		System.out.println("You are player " + rand);
-
 		// if the number is 1 then blue is player 1 and red is computer
 		if (rand == 1) {
 			play.setPlayer(2);
