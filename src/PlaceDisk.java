@@ -4,24 +4,48 @@ import java.awt.Point;
 
 // strictly handles the GUI of placing a disk on the board
 public class PlaceDisk {
-	
+
 	// the radius of each disc
 	private static final int DISC_RADIUS = 100;
-	
-	// must keep track of positions of the discs
-	static int[][] positions = new int[7][6];
-	
-	public static void updateArray(int[][] restore){
-		positions = restore;
+
+	// 1 = red, 2 = blue
+	public static int[][] place(Point p, int player, int[][] positions) {
+		// move it to the lowest empty spot
+		int row = -1;
+		int col = (p.x - 140) / DISC_RADIUS;
+		int count = row;
+		while (count < 5 && positions[count + 1][col] == 0) {
+			row++;
+			count++;
+		}
+
+		if (player == 1)
+			positions[row][col] = 1;
+		else if (player == 2)
+			positions[row][col] = 2;
+
+		return positions;
 	}
 
-	public static void place(Point p, String player) {
-		if (player == "Red")
-			positions[(p.x - 140) / DISC_RADIUS][(p.y - 90) / DISC_RADIUS] 
-					= 1;
-		else if (player == "Blue")
-			positions[(p.x - 140) / DISC_RADIUS][(p.y - 90) / DISC_RADIUS] 
-					= 2;
+	public static int[][] AIPlace(Point p, int color, int[][] positions) {
+		// move it to the lowest empty spot
+		int row = -1;
+		int col = p.y;
+		int count = row;
+		while (count < 5 && positions[count + 1][col] == 0) {
+			row++;
+			count++;
+		}
+		while (positions[0][col] != 0) {
+			// if the column is full then randomize
+			int rand = (int) (Math.random() * 7);
+			col = rand;
+		}
 
+		if (color == 1)
+			positions[row][col] = 1;
+		else if (color == 2)
+			positions[row][col] = 2;
+		return positions;
 	}
 }

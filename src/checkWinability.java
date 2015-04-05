@@ -14,12 +14,12 @@ public class checkWinability {
 												// that would result in out of
 												// bounds
 				// for every position check that it's value is equal to zero, or the next three positions' values
-				if (value[col][row] == value[col + 1][row]
-						|| 0 == value[col + 1][row]) {
-					if (value[col][row] == value[col + 2][row]
-							|| 0 == value[col + 2][row]) {
-						if (value[col][row] == value[col + 3][row]
-								|| 0 == value[col + 3][row]) {
+				if (value[row][col] == value[row][col+1]
+						|| 0 == value[row][col+1]) {
+					if (value[row][col] == value[row][col+2]
+							|| 0 == value[row][col+2]) {
+						if (value[row][col] == value[row][col+3]
+								|| 0 == value[row][col+3]) {
 							return true;
 						}
 					}
@@ -33,12 +33,12 @@ public class checkWinability {
 													// that would result in out
 													// of bounds
 				// for every position check that it's value is equal to zero, or the next three positions' values
-				if (value[col][row] == value[col][row + 1]
-						|| 0 == value[col][row + 1]) {
-					if (value[col][row] == value[col][row + 2]
-							|| 0 == value[col][row + 2]) {
-						if (value[col][row] == value[col][row + 3]
-								|| 0 == value[col][row + 3]) {
+				if (value[row][col] == value[row+1][col]
+						|| 0 == value[row+1][col]) {
+					if (value[row][col] == value[row+2][col]
+							|| 0 == value[row+2][col]) {
+						if (value[row][col] == value[row+3][col]
+								|| 0 == value[row+3][col]) {
 							return true;
 						}
 					}
@@ -53,12 +53,12 @@ public class checkWinability {
 												// that would result in out of
 												// bounds
 				// for every position check that it's value is equal to zero, or the next three positions' values
-				if (value[col][row] == value[col - 1][row - 1]
-						|| 0 == value[col - 1][row - 1]) {
-					if (value[col][row] == value[col - 2][row - 2]
-							|| 0 == value[col - 2][row - 2]) {
-						if (value[col][row] == value[col - 3][row - 3]
-								|| 0 == value[col - 3][row - 3]) {
+				if (value[row][col] == value[row - 1][col - 1]
+						|| 0 == value[row - 1][col - 1]) {
+					if (value[row][col] == value[row - 2][col - 2]
+							|| 0 == value[row - 2][col - 2]) {
+						if (value[row][col] == value[row - 3][col - 3]
+								|| 0 == value[row - 3][col - 3]) {
 							return true;
 						}
 					}
@@ -73,12 +73,12 @@ public class checkWinability {
 												// that would result in out of
 												// bounds
 				// for every position check that it's value is equal to zero, or the next three positions' values
-				if (value[col][row] == value[col + 1][row - 1]
-						|| 0 == value[col + 1][row - 1]) {
-					if (value[col][row] == value[col + 2][row - 2]
-							|| 0 == value[col + 2][row - 2]) {
-						if (value[col][row] == value[col + 3][row - 3]
-								|| 0 == value[col + 3][row - 3]) {
+				if (value[row][col] == value[row - 1][col + 1]
+						|| 0 == value[row - 1][col + 1]) {
+					if (value[row][col] == value[row - 2][col + 2]
+							|| 0 == value[row - 2][col + 2]) {
+						if (value[row][col] == value[row - 3][col + 3]
+								|| 0 == value[row - 3][col + 3]) {
 							return true;
 						}
 					}

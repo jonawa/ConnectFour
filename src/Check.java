@@ -22,33 +22,8 @@ public class Check {
 	static Color colour;
 	static String progress;
 	
-	static void Update(int[][]positions) throws FileNotFoundException{
+	static void Update(int[][]positions){
 		ConnectFour game = new ConnectFour();
-
-		// gravity 
-		for (int i = 0; i < 7; i++) {
-			for (int j = 0; j < 6; j++) {
-				// check to see if each tile is supported by one
-				// below it
-				if (positions[i][j] != 0 && j != 5) {
-					for (int down = j; down < 6; down++) {
-						if (positions[i][down] == 0) {
-							// mark with error]
-							positions[i][down] = positions[i][j];
-							positions[i][j] = 0;
-							// error = true;
-						}
-					}
-				}
-
-				// record counts of each color tile
-				if (positions[i][j] == 1) {
-					game.redCount++;
-				} else if (positions[i][j] == 2) {
-					game.blueCount++;
-				}
-			}
-		}
 		
 		boolean winable = checkWinability.check(positions);
 		if (winable == false ) { 

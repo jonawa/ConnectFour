@@ -14,6 +14,5 @@ public Restore(){
 		
 		//gets array from memory and sends it to place disk to update positions
 		int[][] newArray = gameMemory.loadGame();
-		restoreDisk.updateArray(newArray);
 	}
 }

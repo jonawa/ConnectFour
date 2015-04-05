@@ -19,14 +19,18 @@ public class ConnectFour extends JFrame implements MouseListener {
 
 	int x = 20;
 	int size = 20;
+	static PlaceDisk place = new PlaceDisk();
+	static currentPlayer player = new currentPlayer();
 
-	// initialize current player
+	// AI variables
 	static checkWin check;
-	static currentPlayerAI PlayerAI = new currentPlayerAI();
-	static currentPlayer Player = new currentPlayer();
-	static AI play = new AI();
-	boolean computer = false, user = false;
-	
+	boolean AIGame = false;
+	static connectFourAI AI;
+	int playerCol, AICol;
+	boolean playerFirst = false;
+
+	// 2P game variables
+	int playerTurn;
 
 	static int[][] winPos = new int[4][2];
 	int total = 0;
@@ -39,8 +43,6 @@ public class ConnectFour extends JFrame implements MouseListener {
 	// at the beginning, sets the program to start mode so that the counters are
 	// not drawn
 	static boolean start = false;
-	int redCount = 0;
-	int blueCount = 0;
 	boolean error = false;
 	// creates a polygon for the blue counter holder
 	int xPoly1[] = { 25, 18, 122, 116, 70 }; // x-coordinates
@@ -55,7 +57,7 @@ public class ConnectFour extends JFrame implements MouseListener {
 																// polygon type
 
 	// must keep track of positions of the discs
-	static int[][] positions = new int[7][6];
+	static int[][] positions = new int[6][7];
 	Memory saveGame;
 
 	// the radius of each disc
@@ -91,84 +93,89 @@ public class ConnectFour extends JFrame implements MouseListener {
 			// create the start button
 			Button startButtonAI = new Button("New Game (AI)");
 			startButtonAI.setBounds(20, 290, 100, 25);
-			
+
 			Button startButton2P = new Button("New Game (2P)");
 			startButton2P.setBounds(20, 330, 100, 25);
 
-			// when user is done placing circles
 			Button endButton = new Button("End Game");
-			//endButton.setBounds(20, 330, 100, 25);
 			endButton.setBounds(20, 450, 100, 25);
 
 			Button saveButton = new Button("Save Game");
-			//saveButton.setBounds(20, 370, 100, 25);
 			saveButton.setBounds(20, 370, 100, 25);
 
 			Button loadButton = new Button("Load Game");
-			//loadButton.setBounds(20, 410, 100, 25);
 			loadButton.setBounds(20, 410, 100, 25);
 
 			// add an action listener, if this button is pressed, start a new
 			// game
 			startButtonAI.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					redCount = 0;
-					blueCount = 0;
-					Player.reset();
-
-					if (start == false) {
-						start = true;
-						PlayerAI.getPlayer(positions);
-						positions = play.returnBoard();
-					}
-					
-					System.out.println(PlayerAI.compCol);
-					// set all positions to 0 (empty)
-					for (int i = 0; i < 7; i++) {
-						for (int j = 0; j < 6; j++) {
-							positions[i][j] = 0;
-							repaint();
-						}
-					}
-
-
-					progress = "Game in Progress: You are player " + PlayerAI.compCol;
-					user = false;
-					computer = true;
-					winPos = new int [4][4];
-					total = 0;
-					error = false;
-					colour = Color.black;
-				}
-			});
-			
-			// start a new 2 player game
-			startButton2P.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					redCount = 0;
-					blueCount = 0;
-				//	Player.reset();
-					Player.getPlayer();
-
 					progress = "Game in Progress";
 
 					// set all positions to 0 (empty)
-					for (int i = 0; i < 7; i++) {
-						for (int j = 0; j < 6; j++) {
+					for (int i = 0; i < 6; i++) {
+						for (int j = 0; j < 7; j++) {
 							positions[i][j] = 0;
 							repaint();
 						}
 					}
 
-				//	if (start == false) {
 					start = true;
-					 computer = false;
-					 user = true;
-				//	}
-					winPos = new int [4][4];
+					AIGame = true;
+					winPos = new int[4][4];
 					total = 0;
 					error = false;
 					colour = Color.black;
+
+					// randomly decide which player
+					// goes first
+					int rand = 1 + (int) (Math.random() * 2);
+					if (rand == 1) {
+						playerFirst = true;
+						// player is red, AI is blue
+						playerCol = 1;
+						AICol = 2;
+						progress += ": You are Player Red";
+						AI = new connectFourAI(playerCol, AICol);
+					} else if (rand == 2) {
+						playerCol = 2;
+						AICol = 1;
+						progress += ": You are Player Blue";
+						AI = new connectFourAI(playerCol, AICol);
+						positions = PlaceDisk.AIPlace(AI.bestMove(positions),
+								AICol, positions);
+					}
+				}
+			});
+
+			// start a new 2 player game
+			startButton2P.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					progress = "Game in Progress";
+
+					// set all positions to 0 (empty)
+					for (int i = 0; i < 6; i++) {
+						for (int j = 0; j < 7; j++) {
+							positions[i][j] = 0;
+							repaint();
+						}
+					}
+
+					start = true;
+					winPos = new int[4][4];
+					total = 0;
+					error = false;
+					colour = Color.black;
+
+					// randomly decide which player
+					// goes first
+					int rand = 1 + (int) (Math.random() * 2);
+					if (rand == 1) {
+						playerTurn = 1;
+					} else if (rand == 2) {
+						playerTurn = 2;
+					}
+					playerTurn = player.getPlayer();
 				}
 
 			});
@@ -179,10 +186,9 @@ public class ConnectFour extends JFrame implements MouseListener {
 					System.exit(0);
 				}
 
-
 			});
 
-		// save the current game state into a text file
+			// save the current game state into a text file
 			saveButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					try {
@@ -200,8 +206,8 @@ public class ConnectFour extends JFrame implements MouseListener {
 					try {
 						int[][] temp;
 						temp = saveGame.loadGame();
-						for (int i = 0; i < 7; i++) {
-							for (int j = 0; j < 6; j++) {
+						for (int i = 0; i < 6; i++) {
+							for (int j = 0; j < 7; j++) {
 								positions[i][j] = temp[i][j];
 							}
 						}
@@ -290,19 +296,19 @@ public class ConnectFour extends JFrame implements MouseListener {
 			// print on the screen who's turn it is
 
 			// redraw the whole board (inefficient i know)
-			for (int i = 0; i < 7; i++) {
-				for (int j = 0; j < 6; j++) {
+			for (int i = 0; i < 6; i++) {
+				for (int j = 0; j < 7; j++) {
 					if (positions[i][j] == 1) {
 						g2d.setColor(Color.RED);
-						g2d.fillOval(140 + i * DISC_RADIUS, 90 + j
+						g2d.fillOval(140 + j * DISC_RADIUS, 90 + i
 								* DISC_RADIUS, DISC_RADIUS, DISC_RADIUS);
 					} else if (positions[i][j] == 2) {
 						g2d.setColor(Color.BLUE);
-						g2d.fillOval(140 + i * DISC_RADIUS, 90 + j
+						g2d.fillOval(140 + j * DISC_RADIUS, 90 + i
 								* DISC_RADIUS, DISC_RADIUS, DISC_RADIUS);
 					} else if (positions[i][j] == -1) {
 						g2d.setColor(Color.YELLOW);
-						g2d.fillOval(140 + i * DISC_RADIUS, 90 + j
+						g2d.fillOval(140 + j * DISC_RADIUS, 90 + i
 								* DISC_RADIUS, DISC_RADIUS, DISC_RADIUS);
 					}
 				}
@@ -315,8 +321,6 @@ public class ConnectFour extends JFrame implements MouseListener {
 							+ winPos[i][0] * DISC_RADIUS, 25, 25);
 				}
 			}
-			// showWin show = new showWin();
-			// show.drawDots(positions);
 
 			repaint();
 
@@ -324,36 +328,39 @@ public class ConnectFour extends JFrame implements MouseListener {
 
 	}
 
-	// places and draws a disc at the place the player clicked
-	private void placeDisc(Point p, String player) {
-		if (player == "Red") {
-			positions[(p.x - 140) / DISC_RADIUS][(p.y - 90) / DISC_RADIUS] = 1;
-		} else if (player == "Blue") {
-			positions[(p.x - 140) / DISC_RADIUS][(p.y - 90) / DISC_RADIUS] = 2;
-		}
-		//positions = play.randMove(positions);
-	//	System.out.println(play.player);
-	}
-
-
 	// get x and y coordinates for where user has clicked and prints to console
 	public void mouseClicked(MouseEvent e) {
 		// get x and y coordinates
 		xPos = e.getX();
 		yPos = e.getY();
-		if (start == true) { 
+		if (start == true) {
 			// make sure circles are in bounds of the board
 			if (xPos > 100 && xPos < 840 && yPos > 30 && yPos < 690) {
-				if (user == true){
-					placeDisc(new Point(xPos, yPos), Player.getPlayer());
-					
-				}
-				else {
-					placeDisc(new Point(xPos, yPos), PlayerAI.getPlayer(positions));
-					positions = PlayerAI.returnBoard();
-				}
+				if (positions[0][(xPos - 140) / DISC_RADIUS] == 0) {
+					if (AIGame) {
+						if (playerFirst == false) {
+							// check for AI win and update if so
+							Check.Update(positions);
+							total = Check.returnTotal();
+							winPos = Check.returnPos();
+							if (total == 1 | total == 2) {
+								showWin show = new showWin();
+								progress = show.show(positions, total);
+								colour = show.getColour();
+							} else if (total == -1) {
+								progress = "GAME OVER";
+								colour = Color.magenta;
+							}
+						}
 
-				try {
+						else if (playerFirst == true)
+							positions = PlaceDisk.place(new Point(xPos, yPos),
+									playerCol, positions);
+					} else {
+						positions = PlaceDisk.place(new Point(xPos, yPos),
+								player.getPlayer(), positions);
+					}
+
 					Check.Update(positions);
 					total = Check.returnTotal();
 					winPos = Check.returnPos();
@@ -361,16 +368,22 @@ public class ConnectFour extends JFrame implements MouseListener {
 						showWin show = new showWin();
 						progress = show.show(positions, total);
 						colour = show.getColour();
-					}
-					else if (total == -1 ){
+					} else if (total == -1) {
 						progress = "GAME OVER";
 						colour = Color.magenta;
 					}
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 
+					if (AIGame) {
+						Point best = AI.bestMove(positions);
+
+						System.out.println("best move: " +best.x + " "
+								+ best.y);
+
+						positions = PlaceDisk.AIPlace(best,
+								AICol, positions);
+
+					}
+				}
 			}
 		}
 	}
@@ -378,32 +391,26 @@ public class ConnectFour extends JFrame implements MouseListener {
 	// the main program, runs the game
 	public static void main(String[] args) {
 		ConnectFour game = new ConnectFour();
-		JPanel panel = new JPanel();
-		// game.add(panel);
 		game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		game.pack();
 		game.setVisible(true);
 	}
 
-	// @Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
-	// @Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
-	// @Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
-	// @Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 

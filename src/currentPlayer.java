@@ -7,27 +7,24 @@ public class currentPlayer {
 	// players name is either Blue or Red
 	
 	// initialize it with None 
-	private static String currentPlayer = "None";
+	private static int currentPlayer = 0;
 	
 	// used to change the player's name to Red or Blue throughout the game 
-	private static void setPlayer(String string) {
-		currentPlayer = string;
+	private static void setPlayer(int val) {
+		currentPlayer = val;
 	}
-	
-	public static void reset(){
-		currentPlayer = "None";
-	}
-	
 	//returns whether blue or red is the current player
-	public static String getPlayer(){
-		if (currentPlayer == "None"){
+	public static int getPlayer(){
+		if (currentPlayer == 0){
 			Random();
 		}
-		else if (currentPlayer.equals("Blue")){
-			currentPlayer = "Red";
-		}
-		else if (currentPlayer.equals("Red")){
-			currentPlayer = "Blue";
+		else{
+			if (currentPlayer == 1){
+				currentPlayer = 2;
+			}
+			else if (currentPlayer == 2){
+				currentPlayer = 1;
+			}
 		}
 		return currentPlayer;
 	}
@@ -37,9 +34,10 @@ public class currentPlayer {
 
 		// randomly choosing a number between 1 or 2
 		int rand = 1 + (int) (Math.random() * 2);
-
+		setPlayer(rand);
+		System.out.println(rand);
 		// if the number is 1 then blue is player 1 and red is player 2
-		if (rand == 1) {
+	/*	if (rand == 1) {
 			setPlayer("Blue");
 
 		}
@@ -47,7 +45,7 @@ public class currentPlayer {
 		else if (rand == 2) {
 			setPlayer("Red");
 
-		}
+		}*/
 	}
 	
 }
