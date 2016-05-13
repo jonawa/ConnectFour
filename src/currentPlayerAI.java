@@ -62,15 +62,9 @@ public class currentPlayerAI {
 	//FIXME If player blue is chosen both players are color red.... :(
 		
 	//Die KI ist automatisch rot, der Spieler immer blau, damit es funktioniert.
-		play.setPlayer(1);
-		setPlayer("Red");
-		playCol = "Red";
-		compCol = "Blue";
-		playUser = 2;
-		playComp = 1;
+
 		
-		
-	/*
+	
 		// randomly choosing a number between 1 or 2
 		int rand = 1 + (int) (Math.random() * 2);
 		rand = 1;
@@ -97,7 +91,7 @@ public class currentPlayerAI {
 
 		}
 		
-		*/
+		
 	}
 	
 	

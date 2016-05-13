@@ -127,24 +127,28 @@ public class ConnectFour extends JFrame implements MouseListener {
 					error = false;
 					colour = Color.black;
 
+					
+			//EDITED:
+					playerFirst = true;
+					// player is red, AI is blue
+					playerCol = 1;
+					AICol = 2;
+					progress += ": You are Player Red";
+					AI = new connectFourAI(playerCol, AICol);
+					
+			//FIXME Funktioniert nur, wenn der Spieler Rot ist und startet, sonst spielen beide Spieler irgendwie Rot..
 					// randomly decide which player
 					// goes first
-					int rand = 1 + (int) (Math.random() * 2);
+					//int rand = 1 + (int) (Math.random() * 2);
+					/*
 					if (rand == 1) {
-						playerFirst = true;
-						// player is red, AI is blue
-						playerCol = 1;
-						AICol = 2;
-						progress += ": You are Player Red";
-						AI = new connectFourAI(playerCol, AICol);
-					} else if (rand == 2) {
 						playerCol = 2;
 						AICol = 1;
 						progress += ": You are Player Blue";
 						AI = new connectFourAI(playerCol, AICol);
 						positions = PlaceDisk.AIPlace(AI.bestMove(positions),
 								AICol, positions);
-					}
+					*/
 				}
 			});
 
