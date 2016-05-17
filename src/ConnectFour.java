@@ -5,6 +5,8 @@
  */
 import javax.swing.*;
 
+import bap.HelpClass;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.BasicStroke;
@@ -335,6 +337,11 @@ public class ConnectFour extends JFrame implements MouseListener {
 
 	// get x and y coordinates for where user has clicked and prints to console
 	public void mouseClicked(MouseEvent e) {
+		
+
+
+		
+		
 		// get x and y coordinates
 		xPos = e.getX();
 		yPos = e.getY();
@@ -386,6 +393,9 @@ public class ConnectFour extends JFrame implements MouseListener {
 
 						positions = PlaceDisk.AIPlace(best,
 								AICol, positions);
+						
+						//TODO Just testing to print out the board positions, there should be a better place for this
+						HelpClass.printBoard(positions);
 
 					}
 				}

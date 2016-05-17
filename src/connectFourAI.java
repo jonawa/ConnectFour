@@ -147,7 +147,7 @@ public class connectFourAI {
 						temp = new Point(row, col+index);
 					}
 				}
-				System.out.println(count);
+				//System.out.println(count);
 				if (count == 3){
 					return new Point(temp.x, temp.y);
 				}

@@ -59,9 +59,7 @@ public class currentPlayerAI {
 	@SuppressWarnings("static-access")
 	private static void Random() {
 		
-	//FIXME If player blue is chosen both players are color red.... :(
-		
-	//Die KI ist automatisch rot, der Spieler immer blau, damit es funktioniert.
+	
 
 		
 	
