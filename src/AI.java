@@ -44,6 +44,8 @@ public class AI {
 	}
 	
 	public static void setBest (int [][] moves){
+		
+
 		bestMove = moves;
 	}
 	
