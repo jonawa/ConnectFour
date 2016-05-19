@@ -1,6 +1,4 @@
 /*
-
-Veränderung von Jonathan
 Class connectFour
  Coded by: Maya Ramamurthy, Randa Mohsen, Manaar Hyder, Danielle Shrewd, and James Lee
  Due: March 18, 2015
