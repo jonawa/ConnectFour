@@ -9,6 +9,8 @@ public class Board {
 	////////////////// these next two parts are a repeat from ConnectFour
 	////////////////// so can someone fully move the GUI (only for the board display) from ConnectFour to here?
 	
+	
+	// Was ist das??
 	// creates a polygon for the blue counter holder
 	static int xPoly1[] = { 25, 18, 122, 116, 70 }; // x-coordinates
 	static int yPoly1[] = { 160, 270, 270, 160, 230 }; // y-coordinates
